@@ -23,8 +23,8 @@ namespace WindowsFormsrakendusteloomine
 
         public PictureViewer()
         {
-            this.Size = new System.Drawing.Size(920, 550);
-            this.Text = "Picture Viewer";
+            Size = new System.Drawing.Size(920, 550);
+            Text = "Pildivaatur";
             tableLayoutPanel = new TableLayoutPanel
             {
                 AutoSize = true,
@@ -35,14 +35,14 @@ namespace WindowsFormsrakendusteloomine
                 TabIndex = 0,
                 BackColor = Color.White,
             };
-            tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle
-                (System.Windows.Forms.SizeType.Percent, 15F));
-            tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle
-                (System.Windows.Forms.SizeType.Percent, 85F));
-            tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.RowStyle
-                (System.Windows.Forms.SizeType.Percent, 90F));
-            tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.RowStyle
-                (System.Windows.Forms.SizeType.Percent, 5F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle
+                (SizeType.Percent, 15F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle
+                (SizeType.Percent, 85F));
+            tableLayoutPanel.ColumnStyles.Add(new RowStyle
+                (SizeType.Percent, 90F));
+            tableLayoutPanel.ColumnStyles.Add(new RowStyle
+                (SizeType.Percent, 5F));
             tableLayoutPanel.ResumeLayout(false);
 
             this.Controls.Add(tableLayoutPanel);
@@ -69,7 +69,7 @@ namespace WindowsFormsrakendusteloomine
                 Size = new System.Drawing.Size(117, 30),
                 TabIndex = 1,
                 UseVisualStyleBackColor = true,
-                Text = "Stretch",
+                Text = "Venitada",
                 Dock= System.Windows.Forms.DockStyle.Fill,
             };
             checkBox.CheckedChanged += new System.EventHandler(checkBox_CheckedChanged);
@@ -87,7 +87,7 @@ namespace WindowsFormsrakendusteloomine
                 Location = new System.Drawing.Point(3, 3),
                 Size = new System.Drawing.Size(75, 23),
                 TabIndex=0,
-                Text="Close",
+                Text= "Sulge",
                 UseVisualStyleBackColor = true,
 
 
@@ -113,7 +113,7 @@ namespace WindowsFormsrakendusteloomine
                 Location = new System.Drawing.Point(84, 3),
                 Size = new System.Drawing.Size(121, 23),
                 TabIndex = 1,
-                Text = "Set Background Color",
+                Text = "Taustavärvi määramine",
                 UseVisualStyleBackColor = true,
 
             };
@@ -127,7 +127,7 @@ namespace WindowsFormsrakendusteloomine
                 Location = new System.Drawing.Point(211, 3),
                 Size = new System.Drawing.Size(75, 23),
                 TabIndex = 2,
-                Text="Clear",
+                Text= "Kustuta",
                 UseVisualStyleBackColor = true,
             };
             tableLayoutPanel.Controls.Add(clear);
@@ -139,7 +139,7 @@ namespace WindowsFormsrakendusteloomine
                 Location = new System.Drawing.Point(292, 3),
                 Size = new System.Drawing.Size(102, 23),
                 TabIndex = 3,
-                Text = "Show The Picture",
+                Text = "Näita pilti",
                 UseVisualStyleBackColor = true,
 
             };
@@ -149,7 +149,7 @@ namespace WindowsFormsrakendusteloomine
             openfiledialog1 = new OpenFileDialog
             {
                 RestoreDirectory = true,
-                Title = "Browse Text Files",
+                Title = "Sirvige tekstifaile",
                 Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" +
     "s (*.*)|*.*",
 
@@ -183,6 +183,11 @@ namespace WindowsFormsrakendusteloomine
             {
                 picturebox.BackColor = colordialog.Color;
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void close_Click(object sender, EventArgs e)
