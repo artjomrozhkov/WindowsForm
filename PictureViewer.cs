@@ -12,7 +12,6 @@ namespace WindowsFormsrakendusteloomine
 {
     public partial class PictureViewer : Form
     {
-
         TableLayoutPanel tableLayoutPanel;
         PictureBox picturebox;
         CheckBox checkBox;
@@ -150,9 +149,7 @@ namespace WindowsFormsrakendusteloomine
             {
                 RestoreDirectory = true,
                 Title = "Sirvige tekstifaile",
-                Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" +
-    "s (*.*)|*.*",
-
+                Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
             };
             
             Button[] buttons = { clear, showapicture, close, backgroundcolor };

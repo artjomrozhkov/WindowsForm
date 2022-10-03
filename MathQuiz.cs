@@ -282,10 +282,6 @@ namespace WindowsFormsrakendusteloomine
                 Size = new Size(82, 33),
                 TabIndex = 6,
             };
-            txtAnswer.TextChanged += new EventHandler(CheckAnswer);
-            txtAnswer2.TextChanged += new EventHandler(CheckAnswer);
-            txtAnswer3.TextChanged += new EventHandler(CheckAnswer);
-            txtAnswer4.TextChanged += new EventHandler(CheckAnswer);
             //txtAnswer
             tableLayoutPanel.Controls.Add(txtAnswer, 4, 1);
             tableLayoutPanel.Controls.Add(txtAnswer2, 4, 2);
@@ -312,6 +308,8 @@ namespace WindowsFormsrakendusteloomine
             tableLayoutPanel.Controls.Add(label43, 3, 3);
             tableLayoutPanel.Controls.Add(label44, 3, 4);
 
+            tableLayoutPanel.Controls.Add(lblAnswer, 5, 5);
+
 
             button1 = new Button()
             {
@@ -323,9 +321,18 @@ namespace WindowsFormsrakendusteloomine
                 Text = "Kontrollima",
                 UseVisualStyleBackColor = true,
             };
+            //button1Handler
             button1.Click += new EventHandler(CheckButtonClickEvent);
+            button1.Click += new EventHandler(CheckButtonClickEvent1);
+            button1.Click += new EventHandler(CheckButtonClickEvent2);
+            button1.Click += new EventHandler(CheckButtonClickEvent3);
+            //txtAnswerHandler
+            txtAnswer.TextChanged += new EventHandler(CheckAnswer);
+            txtAnswer2.TextChanged += new EventHandler(CheckAnswer1);
+            txtAnswer3.TextChanged += new EventHandler(CheckAnswer2);
+            txtAnswer4.TextChanged += new EventHandler(CheckAnswer3);
             tableLayoutPanel.Controls.Add(button1, 5, 5);
-            ClientSize = new Size(378, 534);
+            ClientSize = new Size(378, 250);
             Name = "Matemaatikaviktoriin";
             Text = "Matemaatika viktoriinimäng";
             Load += new EventHandler(MathQuiz_Load);
@@ -346,6 +353,95 @@ namespace WindowsFormsrakendusteloomine
         {
 
             int userEntered = Convert.ToInt32(txtAnswer.Text);
+
+            if (userEntered == total)
+            {
+                lblAnswer.Text = "Õige";
+                lblAnswer.ForeColor = Color.Green;
+                score += 1;
+                lblScore.Text = "Skoor: " + score;
+                SetUpGame();
+
+            }
+            else
+            {
+                lblAnswer.Text = "Vale";
+                lblAnswer.ForeColor = Color.Red;
+            }
+
+        }
+
+        private void CheckAnswer1(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer2.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Palun sisestage ainult numbrid!");
+                txtAnswer2.Text = txtAnswer2.Text.Remove(txtAnswer2.Text.Length - 1);
+            }
+        }
+        private void CheckButtonClickEvent1(object sender, EventArgs e)
+        {
+
+            int userEntered = Convert.ToInt32(txtAnswer2.Text);
+
+            if (userEntered == total)
+            {
+                lblAnswer.Text = "Õige";
+                lblAnswer.ForeColor = Color.Green;
+                score += 1;
+                lblScore.Text = "Skoor: " + score;
+                SetUpGame();
+
+            }
+            else
+            {
+                lblAnswer.Text = "Vale";
+                lblAnswer.ForeColor = Color.Red;
+            }
+
+        }
+
+        private void CheckAnswer2(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer3.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Palun sisestage ainult numbrid!");
+                txtAnswer3.Text = txtAnswer3.Text.Remove(txtAnswer3.Text.Length - 1);
+            }
+        }
+        private void CheckButtonClickEvent2(object sender, EventArgs e)
+        {
+
+            int userEntered = Convert.ToInt32(txtAnswer3.Text);
+
+            if (userEntered == total)
+            {
+                lblAnswer.Text = "Õige";
+                lblAnswer.ForeColor = Color.Green;
+                score += 1;
+                lblScore.Text = "Skoor: " + score;
+                SetUpGame();
+
+            }
+            else
+            {
+                lblAnswer.Text = "Vale";
+                lblAnswer.ForeColor = Color.Red;
+            }
+
+        }
+        private void CheckAnswer3(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer4.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Palun sisestage ainult numbrid!");
+                txtAnswer4.Text = txtAnswer4.Text.Remove(txtAnswer4.Text.Length - 1);
+            }
+        }
+        private void CheckButtonClickEvent3(object sender, EventArgs e)
+        {
+
+            int userEntered = Convert.ToInt32(txtAnswer4.Text);
 
             if (userEntered == total)
             {
