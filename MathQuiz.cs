@@ -282,6 +282,8 @@ namespace WindowsFormsrakendusteloomine
                 Size = new Size(82, 33),
                 TabIndex = 6,
             };
+
+        
             //txtAnswer
             tableLayoutPanel.Controls.Add(txtAnswer, 4, 1);
             tableLayoutPanel.Controls.Add(txtAnswer2, 4, 2);
@@ -351,26 +353,34 @@ namespace WindowsFormsrakendusteloomine
         }
         private void CheckButtonClickEvent(object sender, EventArgs e)
         {
-
-            int userEntered = Convert.ToInt32(txtAnswer.Text);
-
-            if (userEntered == total)
+            for (int i=0; i < 4; i++)
             {
-                lblAnswer.Text = "Õige";
-                lblAnswer.ForeColor = Color.Green;
-                score += 1;
-                lblScore.Text = "Skoor: " + score;
-                SetUpGame();
+                int userEntered = 0;
+                try
+                {
+                    userEntered = Convert.ToInt32(txtAnswer.Text[i]);
+                }
+                catch (FormatException)
+                {
+
+                }
+                if (userEntered == total)
+                {
+                    lblAnswer.Text = "Õige";
+                    lblAnswer.ForeColor = Color.Green;
+                    score += 1;
+                    lblScore.Text = "Skoor: " + score;
+                    SetUpGame();
+
+                }
+                else
+                {
+                    lblAnswer.Text = "Vale";
+                    lblAnswer.ForeColor = Color.Red;
+                }
 
             }
-            else
-            {
-                lblAnswer.Text = "Vale";
-                lblAnswer.ForeColor = Color.Red;
-            }
-
         }
-
         private void CheckAnswer1(object sender, EventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer2.Text, "[^0-9]"))

@@ -57,6 +57,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MathQuiz.resx">
+      <DependentUpon>MathQuiz.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PictureViewer.resx">
       <DependentUpon>PictureViewer.cs</DependentUpon>
     </EmbeddedResource>
