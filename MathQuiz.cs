@@ -15,15 +15,18 @@ namespace WindowsFormsrakendusteloomine
         string[] Maths = { "Add", "Subtract", "Multiply" };
         int total;
         int score;
+        private int counter = 60;
+        private Timer timer1;
         private Label lblScore;
-        private Label lblSymbol, lblSymbol2, lblSymbol3, lblSymbol4;
+        private Label lblSymbol, lblSymbol2, lblSymbol3, lblSymbol4, lblTimer;
         private Label lblNumB, lblNumB2, lblNumB3, lblNumB4;
         private Label label4, label42, label43, label44;
         private Label lblAnswer;
         private TextBox txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4;
-        private Button button1;
+        private Button button1, buttonTimer;
         private Label lblNumA, lblNumA2, lblNumA3, lblNumA4;
         TableLayoutPanel tableLayoutPanel;
+        TextBox[] Answer = {};
 
         public MathQuiz()
         {
@@ -79,6 +82,22 @@ namespace WindowsFormsrakendusteloomine
                 TabIndex = 1,
                 Text = "00",
             };
+
+            lblTimer = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Name = "lblAnswer",
+                Size = new Size(50, 15),
+                TabIndex = 5,
+                Text = "--:--:--"
+            };
+            timer1 = new Timer
+            {
+                Interval = 1000
+            };
+
+            timer1.Tick += timer1_Tick;
 
             lblNumA4 = new Label()
             {
@@ -283,7 +302,17 @@ namespace WindowsFormsrakendusteloomine
                 TabIndex = 6,
             };
 
-        
+            buttonTimer = new Button
+            {
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 200),
+                Location = new Point(290, 40),
+                Name = "button1",
+                Size = new Size(75, 35),
+                TabIndex = 7,
+                Text = "Alusta",
+                UseVisualStyleBackColor = true
+            };
+
             //txtAnswer
             tableLayoutPanel.Controls.Add(txtAnswer, 4, 1);
             tableLayoutPanel.Controls.Add(txtAnswer2, 4, 2);
@@ -312,6 +341,10 @@ namespace WindowsFormsrakendusteloomine
 
             tableLayoutPanel.Controls.Add(lblAnswer, 5, 5);
 
+            tableLayoutPanel.Controls.Add(lblTimer, 4, 5);
+
+            tableLayoutPanel.Controls.Add(buttonTimer, 4, 5);
+
 
             button1 = new Button()
             {
@@ -323,6 +356,8 @@ namespace WindowsFormsrakendusteloomine
                 Text = "Kontrollima",
                 UseVisualStyleBackColor = true,
             };
+
+            buttonTimer.Click += ButtonTimer_Click;
             //button1Handler
             button1.Click += new EventHandler(CheckButtonClickEvent);
             button1.Click += new EventHandler(CheckButtonClickEvent1);
@@ -334,7 +369,7 @@ namespace WindowsFormsrakendusteloomine
             txtAnswer3.TextChanged += new EventHandler(CheckAnswer2);
             txtAnswer4.TextChanged += new EventHandler(CheckAnswer3);
             tableLayoutPanel.Controls.Add(button1, 5, 5);
-            ClientSize = new Size(378, 250);
+            ClientSize = new Size(370, 300);
             Name = "Matemaatikaviktoriin";
             Text = "Matemaatika viktoriinimäng";
             Load += new EventHandler(MathQuiz_Load);
@@ -342,6 +377,78 @@ namespace WindowsFormsrakendusteloomine
             PerformLayout();
         }
 
+        private void ButtonTimer_Click(object sender, EventArgs e)
+        {
+            SetUpGame();
+            buttonTimer.Enabled = false;
+            button1.Enabled = true;
+
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter = counter - 1;
+                lblTimer.Text = counter + " sekundit";
+            }
+            else
+            {
+                timer1.Stop();
+                lblTimer.Text = "Rohkem aega ei ole!";
+                txtAnswer.Enabled = false;
+                ClientSize = new Size(370, 300);
+            }
+        }
+
+        private void timer1_Tick1(object sender, EventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter = counter - 1;
+                lblTimer.Text = counter + " sekundit";
+            }
+            else
+            {
+                timer1.Stop();
+                lblTimer.Text = "Rohkem aega ei ole!";
+                txtAnswer2.Enabled = false;
+                ClientSize = new Size(370, 300);
+            }
+        }
+
+        private void timer1_Tick2(object sender, EventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter = counter - 1;
+                lblTimer.Text = counter + " sekundit";
+            }
+            else
+            {
+                timer1.Stop();
+                lblTimer.Text = "Rohkem aega ei ole!";
+                txtAnswer3.Enabled = false;
+                ClientSize = new Size(370, 300);
+            }
+        }
+
+        private void timer1_Tick3(object sender, EventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter = counter - 1;
+                lblTimer.Text = counter + " sekundit";
+            }
+            else
+            {
+                timer1.Stop();
+                lblTimer.Text = "Rohkem aega ei ole!";
+                txtAnswer4.Enabled = false;
+                ClientSize = new Size(370, 300);
+            }
+        }
 
         private void CheckAnswer(object sender, EventArgs e)
         {
@@ -358,7 +465,7 @@ namespace WindowsFormsrakendusteloomine
                 int userEntered = 0;
                 try
                 {
-                    userEntered = Convert.ToInt32(txtAnswer.Text[i]);
+                    userEntered = Convert.ToInt32(txtAnswer.Text);
                 }
                 catch (FormatException)
                 {
@@ -391,24 +498,32 @@ namespace WindowsFormsrakendusteloomine
         }
         private void CheckButtonClickEvent1(object sender, EventArgs e)
         {
-
-            int userEntered = Convert.ToInt32(txtAnswer2.Text);
-
-            if (userEntered == total)
+            for (int i = 0; i < 4; i++)
             {
-                lblAnswer.Text = "Õige";
-                lblAnswer.ForeColor = Color.Green;
-                score += 1;
-                lblScore.Text = "Skoor: " + score;
-                SetUpGame();
+                int userEntered = 0;
+                try
+                {
+                    userEntered = Convert.ToInt32(txtAnswer2.Text);
+                }
+                catch (FormatException)
+                {
 
-            }
-            else
-            {
-                lblAnswer.Text = "Vale";
-                lblAnswer.ForeColor = Color.Red;
-            }
+                }
+                if (userEntered == total)
+                {
+                    lblAnswer.Text = "Õige";
+                    lblAnswer.ForeColor = Color.Green;
+                    score += 1;
+                    lblScore.Text = "Skoor: " + score;
+                    SetUpGame();
 
+                }
+                else
+                {
+                    lblAnswer.Text = "Vale";
+                    lblAnswer.ForeColor = Color.Red;
+                }
+            }
         }
 
         private void CheckAnswer2(object sender, EventArgs e)
@@ -421,22 +536,31 @@ namespace WindowsFormsrakendusteloomine
         }
         private void CheckButtonClickEvent2(object sender, EventArgs e)
         {
-
-            int userEntered = Convert.ToInt32(txtAnswer3.Text);
-
-            if (userEntered == total)
+            for (int i = 0; i < 4; i++)
             {
-                lblAnswer.Text = "Õige";
-                lblAnswer.ForeColor = Color.Green;
-                score += 1;
-                lblScore.Text = "Skoor: " + score;
-                SetUpGame();
+                int userEntered = 0;
+                try
+                {
+                    userEntered = Convert.ToInt32(txtAnswer3.Text);
+                }
+                catch (FormatException)
+                {
 
-            }
-            else
-            {
-                lblAnswer.Text = "Vale";
-                lblAnswer.ForeColor = Color.Red;
+                }
+                if (userEntered == total)
+                {
+                    lblAnswer.Text = "Õige";
+                    lblAnswer.ForeColor = Color.Green;
+                    score += 1;
+                    lblScore.Text = "Skoor: " + score;
+                    SetUpGame();
+
+                }
+                else
+                {
+                    lblAnswer.Text = "Vale";
+                    lblAnswer.ForeColor = Color.Red;
+                }
             }
 
         }
@@ -450,24 +574,32 @@ namespace WindowsFormsrakendusteloomine
         }
         private void CheckButtonClickEvent3(object sender, EventArgs e)
         {
-
-            int userEntered = Convert.ToInt32(txtAnswer4.Text);
-
-            if (userEntered == total)
+            for (int i = 0; i < 4; i++)
             {
-                lblAnswer.Text = "Õige";
-                lblAnswer.ForeColor = Color.Green;
-                score += 1;
-                lblScore.Text = "Skoor: " + score;
-                SetUpGame();
+                int userEntered = 0;
+                try
+                {
+                    userEntered = Convert.ToInt32(txtAnswer4.Text);
+                }
+                catch (FormatException)
+                {
 
-            }
-            else
-            {
-                lblAnswer.Text = "Vale";
-                lblAnswer.ForeColor = Color.Red;
-            }
+                }
+                if (userEntered == total)
+                {
+                    lblAnswer.Text = "Õige";
+                    lblAnswer.ForeColor = Color.Green;
+                    score += 1;
+                    lblScore.Text = "Skoor: " + score;
+                    SetUpGame();
 
+                }
+                else
+                {
+                    lblAnswer.Text = "Vale";
+                    lblAnswer.ForeColor = Color.Red;
+                }
+            }
         }
 
         private void SetUpGame()
