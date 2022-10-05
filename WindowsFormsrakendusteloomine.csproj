@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Koikvorm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MatchingGame.cs">
       <SubType>Form</SubType>
     </Compile>

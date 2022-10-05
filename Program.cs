@@ -16,9 +16,7 @@ namespace WindowsFormsrakendusteloomine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new PictureViewer());
-            //Application.Run(new MathQuiz());
-            Application.Run(new MatchingGame());
+            Application.Run(new Koikvorm());
         }
     }
 }

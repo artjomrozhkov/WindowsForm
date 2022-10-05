@@ -22,7 +22,7 @@ namespace WindowsFormsrakendusteloomine
 
         public PictureViewer()
         {
-            Size = new System.Drawing.Size(920, 550);
+            Size = new System.Drawing.Size(560, 360);
             Text = "Pildivaatur";
             tableLayoutPanel = new TableLayoutPanel
             {

@@ -98,6 +98,9 @@ namespace WindowsFormsrakendusteloomine
             };
 
             timer1.Tick += timer1_Tick;
+            timer1.Tick += timer1_Tick1;
+            timer1.Tick += timer1_Tick2;
+            timer1.Tick += timer1_Tick3;
 
             lblNumA4 = new Label()
             {
@@ -369,7 +372,7 @@ namespace WindowsFormsrakendusteloomine
             txtAnswer3.TextChanged += new EventHandler(CheckAnswer2);
             txtAnswer4.TextChanged += new EventHandler(CheckAnswer3);
             tableLayoutPanel.Controls.Add(button1, 5, 5);
-            ClientSize = new Size(370, 300);
+            ClientSize = new Size(385, 300);
             Name = "Matemaatikaviktoriin";
             Text = "Matemaatika viktoriinimäng";
             Load += new EventHandler(MathQuiz_Load);
@@ -406,7 +409,6 @@ namespace WindowsFormsrakendusteloomine
         {
             if (counter > 0)
             {
-                counter = counter - 1;
                 lblTimer.Text = counter + " sekundit";
             }
             else
@@ -422,7 +424,6 @@ namespace WindowsFormsrakendusteloomine
         {
             if (counter > 0)
             {
-                counter = counter - 1;
                 lblTimer.Text = counter + " sekundit";
             }
             else
@@ -438,7 +439,6 @@ namespace WindowsFormsrakendusteloomine
         {
             if (counter > 0)
             {
-                counter = counter - 1;
                 lblTimer.Text = counter + " sekundit";
             }
             else
@@ -624,18 +624,21 @@ namespace WindowsFormsrakendusteloomine
                     total = numA + numB;
                     lblSymbol.Text = "+";
                     lblSymbol.ForeColor = Color.Green;
+                    txtAnswer.Text = total.ToString();
                     break;
 
                 case "Subtract":
                     total = numA - numB;
                     lblSymbol.Text = "-";
                     lblSymbol.ForeColor = Color.Maroon;
+                    txtAnswer.Text = total.ToString();
                     break;
 
                 case "Multiply":
                     total = numA * numB;
                     lblSymbol.Text = "x";
                     lblSymbol.ForeColor = Color.Purple;
+                    txtAnswer.Text = total.ToString();
                     break;
             }
 
@@ -645,18 +648,21 @@ namespace WindowsFormsrakendusteloomine
                     total = numA1 + numB1;
                     lblSymbol2.Text = "+";
                     lblSymbol2.ForeColor = Color.Green;
+                    txtAnswer2.Text = total.ToString();
                     break;
 
                 case "Subtract":
                     total = numA1 - numB1;
                     lblSymbol2.Text = "-";
                     lblSymbol2.ForeColor = Color.Maroon;
+                    txtAnswer2.Text = total.ToString();
                     break;
 
                 case "Multiply":
                     total = numA1 * numB1;
                     lblSymbol2.Text = "x";
                     lblSymbol2.ForeColor = Color.Purple;
+                    txtAnswer2.Text = total.ToString();
                     break;
             }
 
@@ -666,18 +672,21 @@ namespace WindowsFormsrakendusteloomine
                     total = numA2 + numB2;
                     lblSymbol3.Text = "+";
                     lblSymbol3.ForeColor = Color.Green;
+                    txtAnswer3.Text = total.ToString();
                     break;
 
                 case "Subtract":
                     total = numA2 - numB2;
                     lblSymbol3.Text = "-";
                     lblSymbol3.ForeColor = Color.Maroon;
+                    txtAnswer3.Text = total.ToString();
                     break;
 
                 case "Multiply":
                     total = numA2 * numB2;
                     lblSymbol3.Text = "x";
                     lblSymbol3.ForeColor = Color.Purple;
+                    txtAnswer3.Text = total.ToString();
                     break;
             }
 
@@ -687,18 +696,21 @@ namespace WindowsFormsrakendusteloomine
                     total = numA3 + numB3;
                     lblSymbol4.Text = "+";
                     lblSymbol4.ForeColor = Color.Green;
+                    txtAnswer4.Text = total.ToString();
                     break;
 
                 case "Subtract":
                     total = numA3 - numB3;
                     lblSymbol4.Text = "-";
                     lblSymbol4.ForeColor = Color.Maroon;
+                    txtAnswer4.Text = total.ToString();
                     break;
 
                 case "Multiply":
                     total = numA3 * numB3;
                     lblSymbol4.Text = "x";
                     lblSymbol4.ForeColor = Color.Purple;
+                    txtAnswer4.Text = total.ToString();
                     break;
             }
 
