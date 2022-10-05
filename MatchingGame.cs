@@ -24,6 +24,7 @@ namespace WindowsFormsrakendusteloomine
         TableLayoutPanel tableLayoutPanel;
         Label label1, label2, label3, label4, label5, label6, label7, label8, label9, label10, label11, label12, label13, label14, label15, label16;
         Timer timer1;
+        Form Form1;
 
         private void InitializeComponent()
         {
@@ -160,7 +161,7 @@ namespace WindowsFormsrakendusteloomine
                 TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
             };
             this.label10.Click += new System.EventHandler(this.label_Click);
-    
+
 
             label9 = new Label
             {
@@ -174,66 +175,76 @@ namespace WindowsFormsrakendusteloomine
                 TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
             };
             label9.Click += new System.EventHandler(this.label_Click);
-            // 
-            // label8
-            // 
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label8.Location = new System.Drawing.Point(404, 129);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(125, 125);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "c";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label8.Click += new System.EventHandler(this.label_Click);
-            // 
-            // label7
-            // 
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label7.Location = new System.Drawing.Point(271, 129);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(125, 125);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "c";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label7.Click += new System.EventHandler(this.label_Click);
-            // 
-            // label6
-            // 
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label6.Location = new System.Drawing.Point(138, 129);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(125, 125);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "c";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+
+            label8 = new Label
+            {
+                Dock = System.Windows.Forms.DockStyle.Fill,
+                Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2))),
+                Location = new System.Drawing.Point(404, 129),
+                Name = "label8",
+                Size = new System.Drawing.Size(125, 125),
+                TabIndex = 7,
+                Text = "c",
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+            };
+            label8.Click += new System.EventHandler(this.label_Click);
+
+
+            label7 = new Label
+            {
+                Dock = System.Windows.Forms.DockStyle.Fill,
+                Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2))),
+                Location = new System.Drawing.Point(271, 129),
+                Name = "label7",
+                Size = new System.Drawing.Size(125, 125),
+                TabIndex = 6,
+                Text = "c",
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+            };
+            label7.Click += new System.EventHandler(this.label_Click);
+
+
+            label6 = new Label
+            {
+                Dock = System.Windows.Forms.DockStyle.Fill,
+                Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2))),
+                Location = new System.Drawing.Point(138, 129),
+                Name = "label6",
+                Size = new System.Drawing.Size(125, 125),
+                TabIndex = 5,
+                Text = "c",
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+            };
             this.label6.Click += new System.EventHandler(this.label_Click);
-            // 
-            // label5
-            // 
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label5.Location = new System.Drawing.Point(5, 129);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(125, 125);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "c";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+
+            label5 = new Label
+            {
+                Dock = System.Windows.Forms.DockStyle.Fill,
+                Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2))),
+                Location = new System.Drawing.Point(5, 129),
+                Name = "label5",
+                Size = new System.Drawing.Size(125, 125),
+                TabIndex = 4,
+                Text = "c",
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+            };
             this.label5.Click += new System.EventHandler(this.label_Click);
-            // 
-            // label4
-            // 
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label4.Location = new System.Drawing.Point(404, 2);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(125, 125);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "c";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label4.Click += new System.EventHandler(this.label_Click);
+
+
+            label4 = new Label
+            {
+                Dock = System.Windows.Forms.DockStyle.Fill,
+                Font = new System.Drawing.Font("Webdings", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2))),
+                Location = new System.Drawing.Point(404, 2),
+                Name = "label4",
+                Size = new System.Drawing.Size(125, 125),
+                TabIndex = 3,
+                Text = "c",
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+            };
+            label4.Click += new System.EventHandler(this.label_Click);
             // 
             // label3
             // 
@@ -278,15 +289,18 @@ namespace WindowsFormsrakendusteloomine
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 511);
-            this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "Form1";
-            this.Text = "Matching Game";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.tableLayoutPanel.ResumeLayout(false);
-            this.ResumeLayout(false);
+            Form1 = new Form
+            {
+                AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F),
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font,
+                ClientSize = new System.Drawing.Size(534, 511),
+                Name = "Form1",
+                Text = "Matching Game",
+            };
+            Load += new System.EventHandler(this.Form1_Load);
+            tableLayoutPanel.ResumeLayout(false);
+            ResumeLayout(false);
+            Controls.Add(this.tableLayoutPanel);
 
         }
     
