@@ -37,10 +37,16 @@ namespace WindowsFormsrakendusteloomine
         }
         internal void InitializeComponent()
         {
+            SuspendLayout();
+            ClientSize = new Size(320, 300);
+            Name = "MathQuiz";
+            Text = "Maths Quiz Game";
+            ResumeLayout(false);
+            PerformLayout();
             lblNumArrayA = new Label[] { lblNumA, lblNumA2, lblNumA3, lblNumA4 };
             lblNumArrayB = new Label[] { lblNumB, lblNumB2, lblNumB3, lblNumB4 };
-            labelSymArray = new Label[] { lblSymbol, lblSymbol2, lblSymbol3, lblSymbol4 };
             lblEqualsArray = new Label[] { lblEquals, lblEquals2, lblEquals3, lblEquals4 };
+            labelSymArray = new Label[] { lblSymbol, lblSymbol2, lblSymbol3, lblSymbol4 };
             txtAnswerArray = new TextBox[] { txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4 };
             totalArray = new int[] { total1, total2, total3, total4 };
             
@@ -190,7 +196,28 @@ namespace WindowsFormsrakendusteloomine
                 Text = "Alusta",
                 UseVisualStyleBackColor = true
             };
+            
+            button1 = new Button()
+            {
+                Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 204),
+                Location = new Point(290, 40),
+                Name = "button1",
+                Size = new Size(75, 33),
+                TabIndex = 7,
+                Text = "Kontrollima",
+                UseVisualStyleBackColor = true,
+            };
+            
+            
+            buttonTimer.Click += ButtonTimer_Click;
 
+            button1.Click += new EventHandler(CheckButtonClickEvent);
+
+            txtAnswerArray[0].TextChanged += new EventHandler(CheckAnswer);
+            txtAnswerArray[1].TextChanged += new EventHandler(CheckAnswer);
+            txtAnswerArray[2].TextChanged += new EventHandler(CheckAnswer);
+            txtAnswerArray[3].TextChanged += new EventHandler(CheckAnswer);
+           
             //NumA
             tableLayoutPanel.Controls.Add(lblNumArrayA[0], 0, 0);
             tableLayoutPanel.Controls.Add(lblNumArrayA[1], 0, 1);
@@ -228,31 +255,6 @@ namespace WindowsFormsrakendusteloomine
             tableLayoutPanel.Controls.Add(button1, 4, 4);
             tableLayoutPanel.Controls.Add(buttonTimer, 4, 5);
             tableLayoutPanel.Controls.Add(lblTimer);
-
-
-            button1 = new Button()
-            {
-                Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(290, 40),
-                Name = "button1",
-                Size = new Size(75, 33),
-                TabIndex = 7,
-                Text = "Kontrollima",
-                UseVisualStyleBackColor = true,
-            };
-
-            buttonTimer.Click += ButtonTimer_Click;
-            //button1Handler
-            button1.Click += new EventHandler(CheckButtonClickEvent);
-            //txtAnswerHandler
-            txtAnswer.TextChanged += new EventHandler(CheckAnswer);
-            tableLayoutPanel.Controls.Add(button1, 5, 5);
-            ClientSize = new Size(385, 300);
-            Name = "Matemaatikaviktoriin";
-            Text = "Matemaatika viktoriinimäng";
-            Load += new EventHandler(MathQuiz_Load);
-            ResumeLayout(false);
-            PerformLayout();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -296,7 +298,6 @@ namespace WindowsFormsrakendusteloomine
 
         private void CheckButtonClickEvent(object sender, EventArgs e)
         {
-
             for (int i = 0; i < 4; i++) 
             {
                 int userEntered = 0;
@@ -334,17 +335,15 @@ namespace WindowsFormsrakendusteloomine
             }
             correct = 0;
         }
-
+        
         private void Game()
         {
             for (int ii = 0; ii < 4; ii++)
             {
-
                 int numA = rnd.Next(10, 20);
                 int numB = rnd.Next(0, 9);
 
                 txtAnswerArray[ii].Text = null;
-
 
                 string Tsym = "";
                 Color colorSym = Color.Black;
@@ -370,12 +369,9 @@ namespace WindowsFormsrakendusteloomine
                     }
                     labelSymArray[ii].Text = Tsym;
                 
-
                 lblNumArrayA[ii].Text = numA.ToString();
                 lblNumArrayB[ii].Text = numB.ToString();
-
             }
         }
-
     }
 }
