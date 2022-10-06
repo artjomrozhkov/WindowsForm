@@ -91,10 +91,6 @@ namespace WindowsFormsrakendusteloomine
                 Interval = 1000
             };
 
-            timer1.Tick += timer1_Tick;
-            timer1.Tick += timer1_Tick1;
-            timer1.Tick += timer1_Tick2;
-            timer1.Tick += timer1_Tick3;
 
             foreach (Label sym in lblNumArrayA)
             {
@@ -210,7 +206,7 @@ namespace WindowsFormsrakendusteloomine
             
             
             buttonTimer.Click += ButtonTimer_Click;
-
+            timer1.Tick += timer1_Tick;
             button1.Click += new EventHandler(CheckButtonClickEvent);
 
             txtAnswerArray[0].TextChanged += new EventHandler(CheckAnswer);
@@ -290,7 +286,7 @@ namespace WindowsFormsrakendusteloomine
             {
             if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswerArray[i].Text, "[^0-9]"))
             {
-                MessageBox.Show("Ainult numbrid palun!");
+                MessageBox.Show("Ainult numbrid!");
                 txtAnswerArray[i].Text = txtAnswerArray[i].Text.Remove(txtAnswerArray[i].Text.Length - 1);
             }
             }
