@@ -13,7 +13,6 @@ namespace WindowsFormsrakendusteloomine
         
         Random rnd = new Random();
         string[] Maths = { "Lisa", "Lahuta", "Korruta" };
-        int total;
         private int counter = 60;
         private Timer timer1;
         private Label lblScore;
