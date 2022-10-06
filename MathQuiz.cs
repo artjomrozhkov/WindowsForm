@@ -27,6 +27,7 @@ namespace WindowsFormsrakendusteloomine
         private Label lblNumA, lblNumA2, lblNumA3, lblNumA4;
         TableLayoutPanel tableLayoutPanel;
         TextBox[] Answer = {};
+        Label[] labelSymArray = { }, lblNumArrayA = { }, lblNumArrayB = { }, lblEqualsArray = { };
 
         public MathQuiz()
         {
@@ -35,6 +36,12 @@ namespace WindowsFormsrakendusteloomine
         }
         internal void InitializeComponent()
         {
+            lblNumArrayA = new Label[] { lblNumA, lblNumA2, lblNumA3, lblNumA4 };
+            lblNumArrayB = new Label[] { lblNumB, lblNumB2, lblNumB3, lblNumB4 };
+            labelSymArray = new Label[] { lblSymbol, lblSymbol2, lblSymbol3, lblSymbol4 };
+            lblEqualsArray = new Label[] { lblEquals, lblEquals2, lblEquals3, lblEquals4 };
+            txtAnswerArray = new TextBox[] { txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4 };
+            totalArray = new int[] { total1, total2, total3, total4 };
 
 
             tableLayoutPanel = new TableLayoutPanel
