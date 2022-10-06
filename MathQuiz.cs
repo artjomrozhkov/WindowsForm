@@ -20,7 +20,7 @@ namespace WindowsFormsrakendusteloomine
         private Label lblScore;
         private Label lblSymbol, lblSymbol2, lblSymbol3, lblSymbol4, lblTimer;
         private Label lblNumB, lblNumB2, lblNumB3, lblNumB4;
-        private Label label4, label42, label43, label44;
+        private Label lblEquals, lblEquals2, lblEquals3, lblEquals4;
         private Label lblAnswer;
         private TextBox txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4;
         private Button button1, buttonTimer;
@@ -42,6 +42,8 @@ namespace WindowsFormsrakendusteloomine
             lblEqualsArray = new Label[] { lblEquals, lblEquals2, lblEquals3, lblEquals4 };
             txtAnswerArray = new TextBox[] { txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4 };
             totalArray = new int[] { total1, total2, total3, total4 };
+            
+            int i = 0;
 
 
             tableLayoutPanel = new TableLayoutPanel
@@ -68,28 +70,6 @@ namespace WindowsFormsrakendusteloomine
             };
             tableLayoutPanel.Controls.Add(this.lblScore);
 
-            lblNumA2 = new Label()
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(14, 40),
-                Name = "lblNumA",
-                Size = new Size(49, 33),
-                TabIndex = 1,
-                Text = "00",
-            };
-
-            lblNumA3 = new Label()
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(14, 40),
-                Name = "lblNumA",
-                Size = new Size(49, 33),
-                TabIndex = 1,
-                Text = "00",
-            };
-
             lblTimer = new Label
             {
                 AutoSize = true,
@@ -109,160 +89,69 @@ namespace WindowsFormsrakendusteloomine
             timer1.Tick += timer1_Tick2;
             timer1.Tick += timer1_Tick3;
 
-            lblNumA4 = new Label()
+            foreach (Label sym in lblNumArrayA)
             {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(14, 40),
-                Name = "lblNumA",
-                Size = new Size(49, 33),
-                TabIndex = 1,
-                Text = "00",
-            };
-
-            lblNumA = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(14, 40),
-                Name = "lblNumA",
-                Size = new Size(49, 33),
-                TabIndex = 1,
-                Text = "00",
-            };
-
-
-            lblSymbol = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(69, 40),
-                Name = "lblSymbol",
-                Size = new Size(33, 33),
-                TabIndex = 2,
-                Text = "+",
-            };
-
-            lblSymbol2 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(69, 40),
-                Name = "lblSymbol",
-                Size = new Size(33, 33),
-                TabIndex = 2,
-                Text = "+",
-            };
-
-            lblSymbol3 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(69, 40),
-                Name = "lblSymbol",
-                Size = new Size(33, 33),
-                TabIndex = 2,
-                Text = "+",
-            };
-
-            lblSymbol4 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(69, 40),
-                Name = "lblSymbol",
-                Size = new Size(33, 33),
-                TabIndex = 2,
-                Text = "+",
-            };
-
-            lblNumB = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(108, 40),
-                Name = "lblNumB",
-                Size = new Size(49, 33),
-                TabIndex = 3,
-                Text = "00",
-            };
-
-            lblNumB2 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(108, 40),
-                Name = "lblNumB",
-                Size = new Size(49, 33),
-                TabIndex = 3,
-                Text = "00",
-            };
-
-            lblNumB3 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(108, 40),
-                Name = "lblNumB",
-                Size = new Size(49, 33),
-                TabIndex = 3,
-                Text = "00",
-            };
-
-            lblNumB4 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(108, 40),
-                Name = "lblNumB",
-                Size = new Size(49, 33),
-                TabIndex = 3,
-                Text = "00",
-            };
-
-            label4 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(163, 40),
-                Name = "label4",
-                Size = new Size(33, 33),
-                TabIndex = 4,
-                Text = "=",
-            };
-
-            label42 = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(163, 40),
-                Name = "label4",
-                Size = new Size(33, 33),
-                TabIndex = 4,
-                Text = "=",
-            };
+                lblNumArrayA[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
+                    Location = new Point(14, 40),
+                    Name = "lblNumA",
+                    Size = new Size(49, 33),
+                    TabIndex = 1,
+                    Text = "00",
+                };
+                i++;
+            }
+            i = 0;
             
-            label43 = new Label
+            foreach (Label sym in lblNumArrayB)
             {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(163, 40),
-                Name = "label4",
-                Size = new Size(33, 33),
-                TabIndex = 4,
-                Text = "=",
-            };
+                lblNumArrayB[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
+                    Location = new Point(108, 40),
+                    Name = "lblNumB",
+                    Size = new Size(49, 33),
+                    TabIndex = 3,
+                    Text = "00",
+                };
+                i++;
+            }
+            i = 0;
 
-            label44 = new Label
+            foreach (Label sym in labelSymArray)
             {
-                AutoSize = true,
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
-                Location = new Point(163, 40),
-                Name = "label4",
-                Size = new Size(33, 33),
-                TabIndex = 4,
-                Text = "=",
-            };
+                labelSymArray[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
+                    Location = new Point(69, 40),
+                    Name = "lblSymbol",
+                    Size = new Size(33, 33),
+                    TabIndex = 2,
+                    Text = "+",
+                };
+                i++;
+            }
+            i = 0;
+
+            foreach (Label sym in lblEqualsArray)
+            {
+                lblEqualsArray[i] = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
+                    Location = new Point(163, 40),
+                    Name = "label4",
+                    Size = new Size(33, 33),
+                    TabIndex = 4,
+                    Text = "=",
+                };
+                i++;
+            }
+            i = 0;
 
             lblAnswer = new Label
             {
@@ -276,41 +165,19 @@ namespace WindowsFormsrakendusteloomine
                 Text = "Õige",
             };
 
-            txtAnswer2 = new TextBox
+            foreach (TextBox sym in txtAnswerArray)
             {
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204),
-                Location = new Point(202, 40),
-                Multiline = true,
-                Size = new Size(82, 33),
-                TabIndex = 6,
-            };
-
-            txtAnswer3 = new TextBox
-            {
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204),
-                Location = new Point(202, 40),
-                Multiline = true,
-                Size = new Size(82, 33),
-                TabIndex = 6,
-            };
-
-            txtAnswer4 = new TextBox
-            {
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204),
-                Location = new Point(202, 40),
-                Multiline = true,
-                Size = new Size(82, 33),
-                TabIndex = 6,
-            };
-
-            txtAnswer = new TextBox
-            {
-                Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204),
-                Location = new Point(202, 40),
-                Multiline = true,
-                Size = new Size(82, 33),
-                TabIndex = 6,
-            };
+                txtAnswerArray[i] = new TextBox
+                {
+                    Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204),
+                    Location = new Point(202, 40),
+                    Multiline = true,
+                    Size = new Size(82, 33),
+                    TabIndex = 6,
+                };
+                i++;
+            }
+            i = 0;
 
             buttonTimer = new Button
             {
