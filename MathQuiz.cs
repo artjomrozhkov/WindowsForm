@@ -12,9 +12,8 @@ namespace WindowsFormsrakendusteloomine
     {
         
         Random rnd = new Random();
-        string[] Maths = { "Add", "Subtract", "Multiply" };
+        string[] Maths = { "Lisa", "Lahuta", "Korruta" };
         int total;
-        int score;
         private int counter = 60;
         private Timer timer1;
         private Label lblScore;
@@ -27,6 +26,8 @@ namespace WindowsFormsrakendusteloomine
         private Label lblNumA, lblNumA2, lblNumA3, lblNumA4;
         TableLayoutPanel tableLayoutPanel;
         TextBox[] Answer = {};
+        TextBox[] txtAnswerArray = { };
+        int[] totalArray = { };
         Label[] labelSymArray = { }, lblNumArrayA = { }, lblNumArrayB = { }, lblEqualsArray = { };
 
         public MathQuiz()
@@ -190,37 +191,43 @@ namespace WindowsFormsrakendusteloomine
                 UseVisualStyleBackColor = true
             };
 
-            //txtAnswer
-            tableLayoutPanel.Controls.Add(txtAnswer, 4, 1);
-            tableLayoutPanel.Controls.Add(txtAnswer2, 4, 2);
-            tableLayoutPanel.Controls.Add(txtAnswer3, 4, 3);
-            tableLayoutPanel.Controls.Add(txtAnswer4, 4, 4);
-            //lblNumA
-            tableLayoutPanel.Controls.Add(lblNumA, 0, 1);
-            tableLayoutPanel.Controls.Add(lblNumA2, 0, 2);
-            tableLayoutPanel.Controls.Add(lblNumA3,0, 3);
-            tableLayoutPanel.Controls.Add(lblNumA4, 0, 4);
-            //lblNumB
-            tableLayoutPanel.Controls.Add(lblNumB, 2, 1);
-            tableLayoutPanel.Controls.Add(lblNumB2, 2, 2);
-            tableLayoutPanel.Controls.Add(lblNumB3, 2, 3);
-            tableLayoutPanel.Controls.Add(lblNumB4, 2, 4);
-            //lblSymbol
-            tableLayoutPanel.Controls.Add(lblSymbol, 1, 1);
-            tableLayoutPanel.Controls.Add(lblSymbol2, 1, 2);
-            tableLayoutPanel.Controls.Add(lblSymbol3, 1, 3);
-            tableLayoutPanel.Controls.Add(lblSymbol4, 1, 4);
-            //label4
-            tableLayoutPanel.Controls.Add(label4, 3, 1);
-            tableLayoutPanel.Controls.Add(label42, 3, 2);
-            tableLayoutPanel.Controls.Add(label43, 3, 3);
-            tableLayoutPanel.Controls.Add(label44, 3, 4);
+            //NumA
+            tableLayoutPanel.Controls.Add(lblNumArrayA[0], 0, 0);
+            tableLayoutPanel.Controls.Add(lblNumArrayA[1], 0, 1);
+            tableLayoutPanel.Controls.Add(lblNumArrayA[2], 0, 2);
+            tableLayoutPanel.Controls.Add(lblNumArrayA[3], 0, 3);
+            
+            //NumB
+            tableLayoutPanel.Controls.Add(lblNumArrayB[0], 1, 0);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[1], 1, 1);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[2], 1, 2);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[3], 1, 3);
+            
+            //Symbol
+            tableLayoutPanel.Controls.Add(labelSymArray[0], 1, 0);
+            tableLayoutPanel.Controls.Add(labelSymArray[1], 1, 1);
+            tableLayoutPanel.Controls.Add(labelSymArray[2], 1, 2);
+            tableLayoutPanel.Controls.Add(labelSymArray[3], 1, 3);
 
-            tableLayoutPanel.Controls.Add(lblAnswer, 5, 5);
+            //Answer
+            tableLayoutPanel.Controls.Add(txtAnswerArray[0], 4, 0);
+            tableLayoutPanel.Controls.Add(txtAnswerArray[1], 4, 1);
+            tableLayoutPanel.Controls.Add(txtAnswerArray[2], 4, 2);
+            tableLayoutPanel.Controls.Add(txtAnswerArray[3], 4, 3);
 
-            tableLayoutPanel.Controls.Add(lblTimer, 4, 5);
 
+            //Equals
+            tableLayoutPanel.Controls.Add(lblEqualsArray[0], 3, 0);
+            tableLayoutPanel.Controls.Add(lblEqualsArray[1], 3, 1);
+            tableLayoutPanel.Controls.Add(lblEqualsArray[2], 3, 2);
+            tableLayoutPanel.Controls.Add(lblEqualsArray[3], 3, 3);
+
+            //Others
+            tableLayoutPanel.Controls.Add(lblAnswer, 4, 4);
+            tableLayoutPanel.Controls.Add(lblScore, 4, 4);
+            tableLayoutPanel.Controls.Add(button1, 4, 4);
             tableLayoutPanel.Controls.Add(buttonTimer, 4, 5);
+            tableLayoutPanel.Controls.Add(lblTimer);
 
 
             button1 = new Button()
@@ -237,14 +244,8 @@ namespace WindowsFormsrakendusteloomine
             buttonTimer.Click += ButtonTimer_Click;
             //button1Handler
             button1.Click += new EventHandler(CheckButtonClickEvent);
-            button1.Click += new EventHandler(CheckButtonClickEvent1);
-            button1.Click += new EventHandler(CheckButtonClickEvent2);
-            button1.Click += new EventHandler(CheckButtonClickEvent3);
             //txtAnswerHandler
             txtAnswer.TextChanged += new EventHandler(CheckAnswer);
-            txtAnswer2.TextChanged += new EventHandler(CheckAnswer1);
-            txtAnswer3.TextChanged += new EventHandler(CheckAnswer2);
-            txtAnswer4.TextChanged += new EventHandler(CheckAnswer3);
             tableLayoutPanel.Controls.Add(button1, 5, 5);
             ClientSize = new Size(385, 300);
             Name = "Matemaatikaviktoriin";
@@ -252,15 +253,6 @@ namespace WindowsFormsrakendusteloomine
             Load += new EventHandler(MathQuiz_Load);
             ResumeLayout(false);
             PerformLayout();
-        }
-
-        private void ButtonTimer_Click(object sender, EventArgs e)
-        {
-            SetUpGame();
-            buttonTimer.Enabled = false;
-            button1.Enabled = true;
-
-            timer1.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -274,333 +266,116 @@ namespace WindowsFormsrakendusteloomine
             {
                 timer1.Stop();
                 lblTimer.Text = "Rohkem aega ei ole!";
-                txtAnswer.Enabled = false;
+                foreach (var item in txtAnswerArray)
+                {
+                    item.Enabled = false;
+                }
                 ClientSize = new Size(370, 300);
             }
         }
-
-        private void timer1_Tick1(object sender, EventArgs e)
+        private void ButtonTimer_Click(object sender, EventArgs e)
         {
-            if (counter > 0)
-            {
-                lblTimer.Text = counter + " sekundit";
-            }
-            else
-            {
-                timer1.Stop();
-                lblTimer.Text = "Rohkem aega ei ole!";
-                txtAnswer2.Enabled = false;
-                ClientSize = new Size(370, 300);
-            }
-        }
+            Game();
+            buttonTimer.Enabled = false;
+            button1.Enabled = true;
 
-        private void timer1_Tick2(object sender, EventArgs e)
-        {
-            if (counter > 0)
-            {
-                lblTimer.Text = counter + " sekundit";
-            }
-            else
-            {
-                timer1.Stop();
-                lblTimer.Text = "Rohkem aega ei ole!";
-                txtAnswer3.Enabled = false;
-                ClientSize = new Size(370, 300);
-            }
-        }
-
-        private void timer1_Tick3(object sender, EventArgs e)
-        {
-            if (counter > 0)
-            {
-                lblTimer.Text = counter + " sekundit";
-            }
-            else
-            {
-                timer1.Stop();
-                lblTimer.Text = "Rohkem aega ei ole!";
-                txtAnswer4.Enabled = false;
-                ClientSize = new Size(370, 300);
-            }
+            timer1.Start();
         }
 
         private void CheckAnswer(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer.Text, "[^0-9]"))
+            for (int i = 0; i < 4; i++)
             {
-                MessageBox.Show("Palun sisestage ainult numbrid!");
-                txtAnswer.Text = txtAnswer.Text.Remove(txtAnswer.Text.Length - 1);
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswerArray[i].Text, "[^0-9]"))
+            {
+                MessageBox.Show("Ainult numbrid palun!");
+                txtAnswerArray[i].Text = txtAnswerArray[i].Text.Remove(txtAnswerArray[i].Text.Length - 1);
+            }
             }
         }
+
         private void CheckButtonClickEvent(object sender, EventArgs e)
         {
-            for (int i=0; i < 4; i++)
+
+            for (int i = 0; i < 4; i++) 
             {
                 int userEntered = 0;
                 try
                 {
-                    userEntered = Convert.ToInt32(txtAnswer.Text);
+                    userEntered = Convert.ToInt32(txtAnswerArray[i].Text);
                 }
                 catch (FormatException)
                 {
-
+                    //MessageBox.Show("Kõik numbrid kirjuta!");
                 }
-                if (userEntered == total)
-                {
-                    lblAnswer.Text = "Õige";
-                    lblAnswer.ForeColor = Color.Green;
-                    score += 1;
-                    lblScore.Text = "Skoor: " + score;
-                    SetUpGame();
 
+                if (userEntered == totalArray[i])
+                {
+                    correct += 1;
                 }
                 else
                 {
-                    lblAnswer.Text = "Vale";
-                    lblAnswer.ForeColor = Color.Red;
                 }
 
             }
+
+            if (correct>=4)
+            {
+                lblAnswer.Text = "Õige!";
+                lblAnswer.ForeColor = Color.Green;
+                score += 1;
+                lblScore.Text = "Punktid: " + score;
+                Game();
+            }
+            else
+            {
+                lblAnswer.Text = "Vale!";
+                lblAnswer.ForeColor = Color.Red;
+            }
+            correct = 0;
         }
-        private void CheckAnswer1(object sender, EventArgs e)
+
+        private void Game()
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer2.Text, "[^0-9]"))
+            for (int ii = 0; ii < 4; ii++)
             {
-                MessageBox.Show("Palun sisestage ainult numbrid!");
-                txtAnswer2.Text = txtAnswer2.Text.Remove(txtAnswer2.Text.Length - 1);
-            }
-        }
-        private void CheckButtonClickEvent1(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                int userEntered = 0;
-                try
-                {
-                    userEntered = Convert.ToInt32(txtAnswer2.Text);
-                }
-                catch (FormatException)
-                {
 
-                }
-                if (userEntered == total)
-                {
-                    lblAnswer.Text = "Õige";
-                    lblAnswer.ForeColor = Color.Green;
-                    score += 1;
-                    lblScore.Text = "Skoor: " + score;
-                    SetUpGame();
+                int numA = rnd.Next(10, 20);
+                int numB = rnd.Next(0, 9);
 
-                }
-                else
-                {
-                    lblAnswer.Text = "Vale";
-                    lblAnswer.ForeColor = Color.Red;
-                }
-            }
-        }
+                txtAnswerArray[ii].Text = null;
 
-        private void CheckAnswer2(object sender, EventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer3.Text, "[^0-9]"))
-            {
-                MessageBox.Show("Palun sisestage ainult numbrid!");
-                txtAnswer3.Text = txtAnswer3.Text.Remove(txtAnswer3.Text.Length - 1);
-            }
-        }
-        private void CheckButtonClickEvent2(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                int userEntered = 0;
-                try
-                {
-                    userEntered = Convert.ToInt32(txtAnswer3.Text);
-                }
-                catch (FormatException)
-                {
 
-                }
-                if (userEntered == total)
-                {
-                    lblAnswer.Text = "Õige";
-                    lblAnswer.ForeColor = Color.Green;
-                    score += 1;
-                    lblScore.Text = "Skoor: " + score;
-                    SetUpGame();
+                string Tsym = "";
+                Color colorSym = Color.Black;
+                    switch (Maths[rnd.Next(0, Maths.Length)])
+                    {
+                        case "Lisa":
+                            totalArray[ii] = numA + numB;
+                            Tsym = "+";
+                            colorSym = Color.Green;
+                            break;
 
-                }
-                else
-                {
-                    lblAnswer.Text = "Vale";
-                    lblAnswer.ForeColor = Color.Red;
-                }
-            }
+                        case "Lahuta":
+                            totalArray[ii] = numA - numB;
+                            Tsym = "-";
+                            colorSym = Color.Maroon;
+                            break;
 
-        }
-        private void CheckAnswer3(object sender, EventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswer4.Text, "[^0-9]"))
-            {
-                MessageBox.Show("Palun sisestage ainult numbrid!");
-                txtAnswer4.Text = txtAnswer4.Text.Remove(txtAnswer4.Text.Length - 1);
-            }
-        }
-        private void CheckButtonClickEvent3(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                int userEntered = 0;
-                try
-                {
-                    userEntered = Convert.ToInt32(txtAnswer4.Text);
-                }
-                catch (FormatException)
-                {
+                        case "Korruta":
+                            totalArray[ii] = numA * numB;
+                            Tsym = "x";
+                            colorSym = Color.Purple;
+                            break;
+                    }
+                    labelSymArray[ii].Text = Tsym;
+                
 
-                }
-                if (userEntered == total)
-                {
-                    lblAnswer.Text = "Õige";
-                    lblAnswer.ForeColor = Color.Green;
-                    score += 1;
-                    lblScore.Text = "Skoor: " + score;
-                    SetUpGame();
+                lblNumArrayA[ii].Text = numA.ToString();
+                lblNumArrayB[ii].Text = numB.ToString();
 
-                }
-                else
-                {
-                    lblAnswer.Text = "Vale";
-                    lblAnswer.ForeColor = Color.Red;
-                }
             }
         }
 
-        private void SetUpGame()
-        {
-            int numA = rnd.Next(10, 20);
-            int numB = rnd.Next(0, 9);
-            int numA1 = rnd.Next(10, 20);
-            int numB1 = rnd.Next(0, 9);
-            int numA2 = rnd.Next(10, 20);
-            int numB2 = rnd.Next(0, 9);
-            int numA3 = rnd.Next(10, 20);
-            int numB3 = rnd.Next(0, 9);
-
-            txtAnswer.Text = null;
-            txtAnswer2.Text = null;
-            txtAnswer3.Text = null;
-            txtAnswer4.Text = null;
-
-            switch (Maths[rnd.Next(0, Maths.Length)])
-            {
-                case "Add":
-                    total = numA + numB;
-                    lblSymbol.Text = "+";
-                    lblSymbol.ForeColor = Color.Green;
-                    txtAnswer.Text = total.ToString();
-                    break;
-
-                case "Subtract":
-                    total = numA - numB;
-                    lblSymbol.Text = "-";
-                    lblSymbol.ForeColor = Color.Maroon;
-                    txtAnswer.Text = total.ToString();
-                    break;
-
-                case "Multiply":
-                    total = numA * numB;
-                    lblSymbol.Text = "x";
-                    lblSymbol.ForeColor = Color.Purple;
-                    txtAnswer.Text = total.ToString();
-                    break;
-            }
-
-            switch (Maths[rnd.Next(0, Maths.Length)])
-            {
-                case "Add":
-                    total = numA1 + numB1;
-                    lblSymbol2.Text = "+";
-                    lblSymbol2.ForeColor = Color.Green;
-                    txtAnswer2.Text = total.ToString();
-                    break;
-
-                case "Subtract":
-                    total = numA1 - numB1;
-                    lblSymbol2.Text = "-";
-                    lblSymbol2.ForeColor = Color.Maroon;
-                    txtAnswer2.Text = total.ToString();
-                    break;
-
-                case "Multiply":
-                    total = numA1 * numB1;
-                    lblSymbol2.Text = "x";
-                    lblSymbol2.ForeColor = Color.Purple;
-                    txtAnswer2.Text = total.ToString();
-                    break;
-            }
-
-            switch (Maths[rnd.Next(0, Maths.Length)])
-            {
-                case "Add":
-                    total = numA2 + numB2;
-                    lblSymbol3.Text = "+";
-                    lblSymbol3.ForeColor = Color.Green;
-                    txtAnswer3.Text = total.ToString();
-                    break;
-
-                case "Subtract":
-                    total = numA2 - numB2;
-                    lblSymbol3.Text = "-";
-                    lblSymbol3.ForeColor = Color.Maroon;
-                    txtAnswer3.Text = total.ToString();
-                    break;
-
-                case "Multiply":
-                    total = numA2 * numB2;
-                    lblSymbol3.Text = "x";
-                    lblSymbol3.ForeColor = Color.Purple;
-                    txtAnswer3.Text = total.ToString();
-                    break;
-            }
-
-            switch (Maths[rnd.Next(0, Maths.Length)])
-            {
-                case "Add":
-                    total = numA3 + numB3;
-                    lblSymbol4.Text = "+";
-                    lblSymbol4.ForeColor = Color.Green;
-                    txtAnswer4.Text = total.ToString();
-                    break;
-
-                case "Subtract":
-                    total = numA3 - numB3;
-                    lblSymbol4.Text = "-";
-                    lblSymbol4.ForeColor = Color.Maroon;
-                    txtAnswer4.Text = total.ToString();
-                    break;
-
-                case "Multiply":
-                    total = numA3 * numB3;
-                    lblSymbol4.Text = "x";
-                    lblSymbol4.ForeColor = Color.Purple;
-                    txtAnswer4.Text = total.ToString();
-                    break;
-            }
-
-            lblNumA.Text = numA.ToString();
-            lblNumA2.Text = numA1.ToString();
-            lblNumA3.Text = numA2.ToString();
-            lblNumA4.Text = numA3.ToString();
-            lblNumB.Text = numB.ToString();
-            lblNumB2.Text = numB1.ToString();
-            lblNumB3.Text = numB2.ToString();
-            lblNumB4.Text = numB3.ToString();
-        }
-
-        private void MathQuiz_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
