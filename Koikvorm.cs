@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -55,20 +55,49 @@ namespace WindowsFormsrakendusteloomine
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            MatchingGame game = new MatchingGame();
-            game.Show();
+            var vastus = MessageBox.Show("Kas sa tahad joosta Sobiv mäng?", "Küsimus", MessageBoxButtons.YesNo);
+
+            if (vastus == DialogResult.Yes)
+            {
+                MatchingGame game = new MatchingGame();
+                game.Show();
+            }
+            else
+            {
+                MessageBox.Show(":(");
+            }
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            PictureViewer mathquiz = new PictureViewer();
-            mathquiz.Show();
+            var vastus = MessageBox.Show("Kas sa tahad joosta Pildivaatur?", "Küsimus", MessageBoxButtons.YesNo);
+
+            if (vastus == DialogResult.Yes)
+            {
+                PictureViewer mathquiz = new PictureViewer();
+                mathquiz.Show();
+            }
+            else
+            {
+                MessageBox.Show(":(");
+            }
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            MathQuiz pildid = new MathQuiz();
-            pildid.Show();
+            var vastus = MessageBox.Show("Kas sa tahad joosta Matemaatika viktoriin?", "Küsimus", MessageBoxButtons.YesNo);
+
+            if (vastus == DialogResult.Yes)
+            {
+                MathQuiz pildid = new MathQuiz();
+                pildid.Show();
+            }
+            else
+            {
+                MessageBox.Show(":(");
+            }
         }
     }
 }
+
+
