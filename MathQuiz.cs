@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace WindowsFormsrakendusteloomine
 {
     public class MathQuiz : Form
     {
-        
+
         Random rnd = new Random();
         string[] Maths = { "Lisa", "Lahuta", "Korruta" };
         private int counter = 60;
@@ -23,8 +23,9 @@ namespace WindowsFormsrakendusteloomine
         private TextBox txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4;
         private Button button1, buttonTimer;
         private Label lblNumA, lblNumA2, lblNumA3, lblNumA4;
+        int score, correct, total1, total2, total3, total4;
         TableLayoutPanel tableLayoutPanel;
-        TextBox[] Answer = {};
+        TextBox[] Answer = { };
         TextBox[] txtAnswerArray = { };
         int[] totalArray = { };
         Label[] labelSymArray = { }, lblNumArrayA = { }, lblNumArrayB = { }, lblEqualsArray = { };
@@ -48,7 +49,7 @@ namespace WindowsFormsrakendusteloomine
             labelSymArray = new Label[] { lblSymbol, lblSymbol2, lblSymbol3, lblSymbol4 };
             txtAnswerArray = new TextBox[] { txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4 };
             totalArray = new int[] { total1, total2, total3, total4 };
-            
+
             int i = 0;
 
 
@@ -106,7 +107,7 @@ namespace WindowsFormsrakendusteloomine
                 i++;
             }
             i = 0;
-            
+
             foreach (Label sym in lblNumArrayB)
             {
                 lblNumArrayB[i] = new Label
@@ -191,7 +192,7 @@ namespace WindowsFormsrakendusteloomine
                 Text = "Alusta",
                 UseVisualStyleBackColor = true
             };
-            
+
             button1 = new Button()
             {
                 Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 204),
@@ -202,8 +203,8 @@ namespace WindowsFormsrakendusteloomine
                 Text = "Kontrollima",
                 UseVisualStyleBackColor = true,
             };
-            
-            
+
+
             buttonTimer.Click += ButtonTimer_Click;
             timer1.Tick += timer1_Tick;
             button1.Click += new EventHandler(CheckButtonClickEvent);
@@ -212,19 +213,19 @@ namespace WindowsFormsrakendusteloomine
             txtAnswerArray[1].TextChanged += new EventHandler(CheckAnswer);
             txtAnswerArray[2].TextChanged += new EventHandler(CheckAnswer);
             txtAnswerArray[3].TextChanged += new EventHandler(CheckAnswer);
-           
+
             //NumA
             tableLayoutPanel.Controls.Add(lblNumArrayA[0], 0, 0);
             tableLayoutPanel.Controls.Add(lblNumArrayA[1], 0, 1);
             tableLayoutPanel.Controls.Add(lblNumArrayA[2], 0, 2);
             tableLayoutPanel.Controls.Add(lblNumArrayA[3], 0, 3);
-            
+
             //NumB
             tableLayoutPanel.Controls.Add(lblNumArrayB[0], 1, 0);
             tableLayoutPanel.Controls.Add(lblNumArrayB[1], 1, 1);
             tableLayoutPanel.Controls.Add(lblNumArrayB[2], 1, 2);
             tableLayoutPanel.Controls.Add(lblNumArrayB[3], 1, 3);
-            
+
             //Symbol
             tableLayoutPanel.Controls.Add(labelSymArray[0], 1, 0);
             tableLayoutPanel.Controls.Add(labelSymArray[1], 1, 1);
@@ -272,7 +273,7 @@ namespace WindowsFormsrakendusteloomine
         }
         private void ButtonTimer_Click(object sender, EventArgs e)
         {
-            Game();
+            SetUpGame();
             buttonTimer.Enabled = false;
             button1.Enabled = true;
 
@@ -283,17 +284,17 @@ namespace WindowsFormsrakendusteloomine
         {
             for (int i = 0; i < 4; i++)
             {
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswerArray[i].Text, "[^0-9]"))
-            {
-                MessageBox.Show("Ainult numbrid!");
-                txtAnswerArray[i].Text = txtAnswerArray[i].Text.Remove(txtAnswerArray[i].Text.Length - 1);
-            }
+                if (System.Text.RegularExpressions.Regex.IsMatch(txtAnswerArray[i].Text, "[^0-9]"))
+                {
+                    MessageBox.Show("Ainult numbrid!");
+                    txtAnswerArray[i].Text = txtAnswerArray[i].Text.Remove(txtAnswerArray[i].Text.Length - 1);
+                }
             }
         }
 
         private void CheckButtonClickEvent(object sender, EventArgs e)
         {
-            for (int i = 0; i < 4; i++) 
+            for (int i = 0; i < 4; i++)
             {
                 int userEntered = 0;
                 try
@@ -315,13 +316,13 @@ namespace WindowsFormsrakendusteloomine
 
             }
 
-            if (correct>=4)
+            if (correct >= 4)
             {
                 lblAnswer.Text = "Õige!";
                 lblAnswer.ForeColor = Color.Green;
                 score += 1;
                 lblScore.Text = "Punktid: " + score;
-                Game();
+                SetUpGame();
             }
             else
             {
@@ -330,8 +331,8 @@ namespace WindowsFormsrakendusteloomine
             }
             correct = 0;
         }
-        
-        private void Game()
+
+        private void SetUpGame()
         {
             for (int ii = 0; ii < 4; ii++)
             {
@@ -342,28 +343,28 @@ namespace WindowsFormsrakendusteloomine
 
                 string Tsym = "";
                 Color colorSym = Color.Black;
-                    switch (Maths[rnd.Next(0, Maths.Length)])
-                    {
-                        case "Lisa":
-                            totalArray[ii] = numA + numB;
-                            Tsym = "+";
-                            colorSym = Color.Green;
-                            break;
+                switch (Maths[rnd.Next(0, Maths.Length)])
+                {
+                    case "Lisa":
+                        totalArray[ii] = numA + numB;
+                        Tsym = "+";
+                        colorSym = Color.Green;
+                        break;
 
-                        case "Lahuta":
-                            totalArray[ii] = numA - numB;
-                            Tsym = "-";
-                            colorSym = Color.Maroon;
-                            break;
+                    case "Lahuta":
+                        totalArray[ii] = numA - numB;
+                        Tsym = "-";
+                        colorSym = Color.Maroon;
+                        break;
 
-                        case "Korruta":
-                            totalArray[ii] = numA * numB;
-                            Tsym = "x";
-                            colorSym = Color.Purple;
-                            break;
-                    }
-                    labelSymArray[ii].Text = Tsym;
-                
+                    case "Korruta":
+                        totalArray[ii] = numA * numB;
+                        Tsym = "x";
+                        colorSym = Color.Purple;
+                        break;
+                }
+                labelSymArray[ii].Text = Tsym;
+
                 lblNumArrayA[ii].Text = numA.ToString();
                 lblNumArrayB[ii].Text = numB.ToString();
             }
