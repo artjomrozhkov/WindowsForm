@@ -221,10 +221,10 @@ namespace WindowsFormsrakendusteloomine
             tableLayoutPanel.Controls.Add(lblNumArrayA[3], 0, 3);
 
             //NumB
-            tableLayoutPanel.Controls.Add(lblNumArrayB[0], 1, 0);
-            tableLayoutPanel.Controls.Add(lblNumArrayB[1], 1, 1);
-            tableLayoutPanel.Controls.Add(lblNumArrayB[2], 1, 2);
-            tableLayoutPanel.Controls.Add(lblNumArrayB[3], 1, 3);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[0], 2, 0);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[1], 2, 1);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[2], 2, 2);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[3], 2, 3);
 
             //Symbol
             tableLayoutPanel.Controls.Add(labelSymArray[0], 1, 0);
