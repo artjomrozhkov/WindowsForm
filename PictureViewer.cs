@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,25 +12,28 @@ namespace WindowsFormsrakendusteloomine
 {
     public partial class PictureViewer : Form
     {
+
+        private List<Bitmap> _bitmaps;
         TableLayoutPanel tableLayoutPanel;
         PictureBox picturebox;
         CheckBox checkBox;
-        Button close, backgroundcolor, clear, showapicture;
+        Button close, backgroundcolor, clear, showapicture,buttonSave;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog1;
         FlowLayoutPanel flowlayoutpanel;
+        TrackBar trackbar;
 
         public PictureViewer()
         {
-            Size = new System.Drawing.Size(560, 360);
+            Size = new System.Drawing.Size(700, 360);
             Text = "Pildivaatur";
             tableLayoutPanel = new TableLayoutPanel
             {
                 AutoSize = true,
-                ColumnCount = 2,
+                ColumnCount = 3,
                 RowCount = 2,
                 Location = new Point(0, 0),
-                Size = new Size(534, 311),
+                Size = new Size(800, 340),
                 TabIndex = 0,
                 BackColor = Color.White,
             };
@@ -52,7 +55,7 @@ namespace WindowsFormsrakendusteloomine
                 BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D,
                 Dock = System.Windows.Forms.DockStyle.Fill,
                 Location = new System.Drawing.Point(2, 2),
-                Size = new System.Drawing.Size(528, 269),
+                Size = new System.Drawing.Size(600, 269),
                 TabIndex = 0,
                 TabStop = false,
             };
@@ -72,7 +75,7 @@ namespace WindowsFormsrakendusteloomine
                 Dock= System.Windows.Forms.DockStyle.Fill,
             };
             checkBox.CheckedChanged += new System.EventHandler(checkBox_CheckedChanged);
-            tableLayoutPanel.Controls.Add(checkBox, 1, 0);
+            tableLayoutPanel.Controls.Add(checkBox, 0, 1);
 
 
 
@@ -145,6 +148,30 @@ namespace WindowsFormsrakendusteloomine
             tableLayoutPanel.Controls.Add(showapicture);
             this.showapicture.Click += new System.EventHandler(this.showapicture_Click);
 
+            buttonSave = new Button
+            {
+                AutoSize = true,
+                Location = new System.Drawing.Point(84, 3),
+                Size = new System.Drawing.Size(121, 23),
+                TabIndex = 1,
+                Text = "Salvesta pilti",
+                UseVisualStyleBackColor = true,
+            };
+            tableLayoutPanel.Controls.Add(buttonSave);
+            buttonSave.Click += ButtonSave_Click;
+
+
+            trackbar = new TrackBar
+            {
+                Orientation = Orientation.Vertical,
+                Dock = DockStyle.Left,
+                Minimum = 1,
+                Maximum = 100,
+                Size = new System.Drawing.Size(15, 200),
+            };
+            tableLayoutPanel.Controls.Add(trackbar, 1, 0);
+            trackbar.Scroll += Trackbar_Scroll;
+
             openfiledialog1 = new OpenFileDialog
             {
                 RestoreDirectory = true,
@@ -152,22 +179,56 @@ namespace WindowsFormsrakendusteloomine
                 Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
             };
             
-            Button[] buttons = { clear, showapicture, close, backgroundcolor };
+            Button[] buttons = { clear, showapicture, close, backgroundcolor, buttonSave };
             flowlayoutpanel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 FlowDirection=FlowDirection.LeftToRight,
-                Size= new Size(200,50),
+                Size= new Size(250,50),
             };
             flowlayoutpanel.Controls.AddRange(buttons);
             tableLayoutPanel.Controls.Add(flowlayoutpanel, 1,1);
             this.Controls.Add(tableLayoutPanel);
         }
 
+        private void Trackbar_Scroll(object sender, EventArgs e)
+        {
+            if (_bitmaps == null || _bitmaps.Count == 0)
+                return;
 
-        
 
+            picturebox.Image = _bitmaps[trackbar.Value - 1];
+        }
 
+        private void ButtonSave_Click(object sender, EventArgs e)
+        {
+            if (picturebox.Image != null) //kui pictureBoxis on pilt
+            {
+                //looge pildi salvestamiseks dialoogiboks "Salvesta kui...".
+                SaveFileDialog savedialog = new SaveFileDialog();
+                savedialog.Title = "Сохранить картинку как...";
+                //kas kuvada hoiatust, kui kasutaja määrab juba olemasoleva faili nime
+                savedialog.OverwritePrompt = true;
+                //kas kuvada hoiatust, kui kasutaja määrab olematu tee
+                savedialog.CheckPathExists = true;
+                //väljal "Failitüüp" kuvatavate failivormingute loend
+                savedialog.Filter = "Image Files(*.BMP)|*.BMP|Image Files(*.JPG)|*.JPG|Image Files(*.GIF)|*.GIF|Image Files(*.PNG)|*.PNG|All files (*.*)|*.*";
+                //on dialoogiboksis kuvatav nupp "Abi".
+                savedialog.ShowHelp = true;
+                if (savedialog.ShowDialog() == DialogResult.OK) //kui dialoogiboksis vajutatakse nuppu "OK".
+                {
+                    try
+                    {
+                        picturebox.Image.Save(savedialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно сохранить изображение", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
 
         private void clear_Click(object sender, EventArgs e)
         {
@@ -183,6 +244,24 @@ namespace WindowsFormsrakendusteloomine
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // PictureViewer
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "PictureViewer";
+            this.Load += new System.EventHandler(this.PictureViewer_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void PictureViewer_Load(object sender, EventArgs e)
         {
 
         }
@@ -209,3 +288,7 @@ namespace WindowsFormsrakendusteloomine
         }
     }
 }
+
+
+
+//youtube.com/watch?v=JXnyaI0rbns
