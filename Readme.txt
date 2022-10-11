@@ -1,7 +1,7 @@
 Pildivaatur{
   1. Pildi salvestamine
   2. Liugur, millega saab muuta pildi läbipaistvust
-  3.
+  3. Piltide filtreerimine
   4.
   5.
 }
