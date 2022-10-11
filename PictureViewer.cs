@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +15,16 @@ namespace WindowsFormsrakendusteloomine
     public partial class PictureViewer : Form
     {
 
-        private List<Bitmap> _bitmaps;
+
+
+
+        private List<Bitmap> _bitmaps = new List <Bitmap>();
+        private Random _random = new Random();
         TableLayoutPanel tableLayoutPanel;
         PictureBox picturebox;
         CheckBox checkBox;
-        Button close, backgroundcolor, clear, showapicture,buttonSave;
+        MenuStrip menuStrip, piltToolStripMenuItem, kustutaToolStripMenuItem, näitaPiltiToolStripMenuItem, sulgeToolStripMenuItem, taustaToolStripMenuItem, salvestaToolStripMenuItem, mustJaValgeToolStripMenuItem, editToolStripMenuItem, venitadaToolStripMenuItem;
+        Button close, backgroundcolor, clear, showapicture,buttonSave, greyButton;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog1;
         FlowLayoutPanel flowlayoutpanel;
@@ -25,6 +32,7 @@ namespace WindowsFormsrakendusteloomine
 
         public PictureViewer()
         {
+
             Size = new System.Drawing.Size(700, 360);
             Text = "Pildivaatur";
             tableLayoutPanel = new TableLayoutPanel
@@ -165,12 +173,46 @@ namespace WindowsFormsrakendusteloomine
             {
                 Orientation = Orientation.Vertical,
                 Dock = DockStyle.Left,
-                Minimum = 1,
-                Maximum = 100,
+                Minimum = 0,
+                Maximum = 255,
+                Value = 255,
                 Size = new System.Drawing.Size(15, 200),
             };
             tableLayoutPanel.Controls.Add(trackbar, 1, 0);
             trackbar.Scroll += Trackbar_Scroll;
+
+
+            menuStrip = new MenuStrip
+            {
+                Location = new System.Drawing.Point(0, 0),
+                Name = "menuStrip1",
+                Size = new System.Drawing.Size(284, 24),
+                TabIndex = 0,
+                Text = "menuStrip1",
+            };
+            tableLayoutPanel.Controls.Add(menuStrip);
+
+
+
+            piltToolStripMenuItem = new MenuStrip
+            {
+                Name = "piltToolStripMenuItem",
+                Size = new System.Drawing.Size(36, 20),
+                Text = "Pilt",
+            };
+            tableLayoutPanel.Controls.Add(piltToolStripMenuItem);
+
+            greyButton = new Button
+            {
+                AutoSize = true,
+                Location = new System.Drawing.Point(84, 3),
+                Size = new System.Drawing.Size(121, 23),
+                TabIndex = 1,
+                Text = "Must ja valge",
+                UseVisualStyleBackColor = true,
+            };
+            tableLayoutPanel.Controls.Add(greyButton);
+            greyButton.Click += GreyButton_Click;
 
             openfiledialog1 = new OpenFileDialog
             {
@@ -191,14 +233,68 @@ namespace WindowsFormsrakendusteloomine
             this.Controls.Add(tableLayoutPanel);
         }
 
+        private void GreyButton_Click(object sender, EventArgs e)
+        {
+            if (picturebox.Image != null) // если изображение в pictureBox1 имеется
+            {
+                // создаём Bitmap из изображения, находящегося в pictureBox1
+                Bitmap input = new Bitmap(picturebox.Image);
+                // создаём Bitmap для черно-белого изображения
+                Bitmap output = new Bitmap(input.Width, input.Height);
+                // перебираем в циклах все пиксели исходного изображения
+                for (int j = 0; j < input.Height; j++)
+                    for (int i = 0; i < input.Width; i++)
+                    {
+                        // получаем (i, j) пиксель
+                        UInt32 pixel = (UInt32)(input.GetPixel(i, j).ToArgb());
+                        // получаем компоненты цветов пикселя
+                        float R = (float)((pixel & 0x00FF0000) >> 16); // красный
+                        float G = (float)((pixel & 0x0000FF00) >> 8); // зеленый
+                        float B = (float)(pixel & 0x000000FF); // синий
+                                                               // делаем цвет черно-белым (оттенки серого) - находим среднее арифметическое
+                        R = G = B = (R + G + B) / 3.0f;
+                        // собираем новый пиксель по частям (по каналам)
+                        UInt32 newPixel = 0xFF000000 | ((UInt32)R << 16) | ((UInt32)G << 8) | ((UInt32)B);
+                        // добавляем его в Bitmap нового изображения
+                        output.SetPixel(i, j, Color.FromArgb((int)newPixel));
+                    }
+                // выводим черно-белый Bitmap в pictureBox2
+                picturebox.Image = output;
+            }
+        }
+
+        static Bitmap SetAlpha(Bitmap bmpIn, int alpha)
+        {
+            Bitmap bmpOut = new Bitmap(bmpIn.Width, bmpIn.Height);
+            float a = alpha / 255f;
+            Rectangle r = new Rectangle(0, 0, bmpIn.Width, bmpIn.Height);
+
+            float[][] matrixItems = {
+            new float[] {1, 0, 0, 0, 0},
+            new float[] {0, 1, 0, 0, 0},
+            new float[] {0, 0, 1, 0, 0},
+            new float[] {0, 0, 0, a, 0},
+            new float[] {0, 0, 0, 0, 1}};
+
+            ColorMatrix colorMatrix = new ColorMatrix(matrixItems);
+
+            ImageAttributes imageAtt = new ImageAttributes();
+            imageAtt.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+            using (Graphics g = Graphics.FromImage(bmpOut))
+                g.DrawImage(bmpIn, r, r.X, r.Y, r.Width, r.Height, GraphicsUnit.Pixel, imageAtt);
+
+            return bmpOut;
+        }
+
+        Image original = null;
         private void Trackbar_Scroll(object sender, EventArgs e)
         {
-            if (_bitmaps == null || _bitmaps.Count == 0)
-                return;
-
-
-            picturebox.Image = _bitmaps[trackbar.Value - 1];
+            if (original == null) original = (Bitmap)picturebox.Image.Clone();
+            picturebox.BackColor = Color.Transparent;
+            picturebox.Image = SetAlpha((Bitmap)original, trackbar.Value);
         }
+
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
@@ -288,7 +384,3 @@ namespace WindowsFormsrakendusteloomine
         }
     }
 }
-
-
-
-//youtube.com/watch?v=JXnyaI0rbns
