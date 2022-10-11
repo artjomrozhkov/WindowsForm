@@ -10,6 +10,8 @@ Pildivaatur{
 }
 
 
+
+
 Matemaatika viktoriin{
   1. Õige vastuse eest lisage punkte
   2. Näitab õiget vastust või mitte
