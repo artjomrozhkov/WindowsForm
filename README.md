@@ -1,6 +1,3 @@
-# WindowsForm
-
-
 Pildivaatur{
   1. Pildi salvestamine
   2. Liugur, millega saab muuta pildi läbipaistvust
