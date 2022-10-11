@@ -20,6 +20,9 @@ Matemaatika viktoriin
   5. Pärast õigete vastuste sisestamist ja Kontroll vajutamist uuendatakse näiteid ja jätkate lahendamist
 
 
+
+
+
 Sobiv mäng
   1.
   2.
