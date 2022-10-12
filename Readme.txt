@@ -1,9 +1,9 @@
 Pildivaatur{
   1. Pildi salvestamine
   2. Liugur, millega saab muuta pildi läbipaistvust
-  3. Piltide filtreerimine
-  4.
-  5.
+  3. Nupule klõpsamine pöörab pilti ümber.
+  4. Slaidiseanss
+  5. 
 }
 
 
