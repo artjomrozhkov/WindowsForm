@@ -18,22 +18,23 @@ namespace WindowsFormsrakendusteloomine
 
 
 
-        private List<Bitmap> _bitmaps = new List <Bitmap>();
+        private List<Bitmap> _bitmaps = new List<Bitmap>();
         private Random _random = new Random();
         TableLayoutPanel tableLayoutPanel;
         PictureBox picturebox;
         CheckBox checkBox;
-        MenuStrip menuStrip, piltToolStripMenuItem, kustutaToolStripMenuItem, näitaPiltiToolStripMenuItem, sulgeToolStripMenuItem, taustaToolStripMenuItem, salvestaToolStripMenuItem, mustJaValgeToolStripMenuItem, editToolStripMenuItem, venitadaToolStripMenuItem;
-        Button close, backgroundcolor, clear, showapicture,buttonSave, greyButton;
+        Button close, backgroundcolor, clear, showapicture, buttonSave, greyButton, rotateButton, SlideShowButton;
         ColorDialog colordialog;
         OpenFileDialog openfiledialog1;
         FlowLayoutPanel flowlayoutpanel;
         TrackBar trackbar;
+        Timer timer;
+        FolderBrowserDialog slide;
 
         public PictureViewer()
         {
 
-            Size = new System.Drawing.Size(700, 360);
+            Size = new System.Drawing.Size(800, 380);
             Text = "Pildivaatur";
             tableLayoutPanel = new TableLayoutPanel
             {
@@ -41,7 +42,6 @@ namespace WindowsFormsrakendusteloomine
                 ColumnCount = 3,
                 RowCount = 2,
                 Location = new Point(0, 0),
-                Size = new Size(800, 340),
                 TabIndex = 0,
                 BackColor = Color.White,
             };
@@ -58,16 +58,41 @@ namespace WindowsFormsrakendusteloomine
             this.Controls.Add(tableLayoutPanel);
 
 
+
+            SlideShowButton = new Button
+            {
+                AutoSize = true,
+                Location = new System.Drawing.Point(3, 3),
+                Size = new System.Drawing.Size(75, 23),
+                TabIndex = 5,
+                Text = "SlideShow",
+                UseVisualStyleBackColor = true,
+            };
+            tableLayoutPanel.Controls.Add(SlideShowButton, 0, 3);
+            SlideShowButton.Click += SlideShowButton_Click;
+
+            rotateButton = new Button
+            {
+                AutoSize = true,
+                Location = new System.Drawing.Point(454, 3),
+                Size = new System.Drawing.Size(75, 23),
+                TabIndex = 5,
+                Text = "Laienda",
+                UseVisualStyleBackColor = true,
+            };
+            tableLayoutPanel.Controls.Add(rotateButton);
+            rotateButton.Click += RotateButton_Click;
+
             picturebox = new System.Windows.Forms.PictureBox
             {
-                BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D,
-                Dock = System.Windows.Forms.DockStyle.Fill,
-                Location = new System.Drawing.Point(2, 2),
-                Size = new System.Drawing.Size(600, 269),
+                BorderStyle = BorderStyle.Fixed3D,
+                Dock = DockStyle.Fill,
+                Location = new Point(2, 2),
+                Size = new Size(528, 269),
                 TabIndex = 0,
                 TabStop = false,
             };
-            tableLayoutPanel.Controls.Add(picturebox, 0,0);
+            tableLayoutPanel.Controls.Add(picturebox, 0, 0);
             tableLayoutPanel.SetCellPosition(picturebox, new TableLayoutPanelCellPosition(0, 0));
             tableLayoutPanel.SetColumnSpan(picturebox, 2);
 
@@ -80,10 +105,10 @@ namespace WindowsFormsrakendusteloomine
                 TabIndex = 1,
                 UseVisualStyleBackColor = true,
                 Text = "Venitada",
-                Dock= System.Windows.Forms.DockStyle.Fill,
+                Dock = System.Windows.Forms.DockStyle.Fill,
             };
             checkBox.CheckedChanged += new System.EventHandler(checkBox_CheckedChanged);
-            tableLayoutPanel.Controls.Add(checkBox, 0, 1);
+            tableLayoutPanel.Controls.Add(checkBox, 1, 0);
 
 
 
@@ -96,8 +121,8 @@ namespace WindowsFormsrakendusteloomine
                 AutoSize = true,
                 Location = new System.Drawing.Point(3, 3),
                 Size = new System.Drawing.Size(75, 23),
-                TabIndex=0,
-                Text= "Sulge",
+                TabIndex = 0,
+                Text = "Sulge",
                 UseVisualStyleBackColor = true,
 
 
@@ -112,7 +137,7 @@ namespace WindowsFormsrakendusteloomine
                 AllowFullOpen = true,
                 AnyColor = true,
                 SolidColorOnly = false,
-                Color=Color.Red,
+                Color = Color.Red,
             };
 
 
@@ -137,7 +162,7 @@ namespace WindowsFormsrakendusteloomine
                 Location = new System.Drawing.Point(211, 3),
                 Size = new System.Drawing.Size(75, 23),
                 TabIndex = 2,
-                Text= "Kustuta",
+                Text = "Kustuta",
                 UseVisualStyleBackColor = true,
             };
             tableLayoutPanel.Controls.Add(clear);
@@ -146,7 +171,6 @@ namespace WindowsFormsrakendusteloomine
             showapicture = new Button
             {
                 AutoSize = true,
-                Location = new System.Drawing.Point(292, 3),
                 Size = new System.Drawing.Size(102, 23),
                 TabIndex = 3,
                 Text = "Näita pilti",
@@ -161,7 +185,7 @@ namespace WindowsFormsrakendusteloomine
                 AutoSize = true,
                 Location = new System.Drawing.Point(84, 3),
                 Size = new System.Drawing.Size(121, 23),
-                TabIndex = 1,
+                TabIndex = 4,
                 Text = "Salvesta pilti",
                 UseVisualStyleBackColor = true,
             };
@@ -181,34 +205,12 @@ namespace WindowsFormsrakendusteloomine
             tableLayoutPanel.Controls.Add(trackbar, 1, 0);
             trackbar.Scroll += Trackbar_Scroll;
 
-
-            menuStrip = new MenuStrip
-            {
-                Location = new System.Drawing.Point(0, 0),
-                Name = "menuStrip1",
-                Size = new System.Drawing.Size(284, 24),
-                TabIndex = 0,
-                Text = "menuStrip1",
-            };
-            tableLayoutPanel.Controls.Add(menuStrip);
-
-
-
-            piltToolStripMenuItem = new MenuStrip
-            {
-                Name = "piltToolStripMenuItem",
-                Size = new System.Drawing.Size(36, 20),
-                Text = "Pilt",
-            };
-            tableLayoutPanel.Controls.Add(piltToolStripMenuItem);
-
             greyButton = new Button
             {
                 AutoSize = true,
-                Location = new System.Drawing.Point(84, 3),
-                Size = new System.Drawing.Size(121, 23),
-                TabIndex = 1,
-                Text = "Must ja valge",
+                Size = new System.Drawing.Size(75, 23),
+                TabIndex = 5,
+                Text = "Must",
                 UseVisualStyleBackColor = true,
             };
             tableLayoutPanel.Controls.Add(greyButton);
@@ -218,19 +220,50 @@ namespace WindowsFormsrakendusteloomine
             {
                 RestoreDirectory = true,
                 Title = "Sirvige tekstifaile",
-                Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|All file" + "s (*.*)|*.*",
+                Filter = "Image Files(*.BMP)|*.BMP|Image Files(*.JPG)|*.JPG|Image Files(*.GIF)|*.GIF|Image Files(*.PNG)|*.PNG|All files (*.*)|*.*",
             };
-            
-            Button[] buttons = { clear, showapicture, close, backgroundcolor, buttonSave };
+
+            Button[] buttons = { clear, showapicture, close, backgroundcolor, buttonSave, rotateButton, greyButton, SlideShowButton };
             flowlayoutpanel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
-                FlowDirection=FlowDirection.LeftToRight,
-                Size= new Size(250,50),
+                FlowDirection = FlowDirection.LeftToRight,
+                Size = new Size(200, 60),
             };
             flowlayoutpanel.Controls.AddRange(buttons);
-            tableLayoutPanel.Controls.Add(flowlayoutpanel, 1,1);
+            tableLayoutPanel.Controls.Add(flowlayoutpanel, 1, 1);
             this.Controls.Add(tableLayoutPanel);
+
+            timer = new Timer
+            {
+                Interval = 1000,
+            };
+            timer.Tick += Timer_Tick;
+        }
+        int imgNum = 0;
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            picturebox.ImageLocation = string.Format(slide.SelectedPath + "\\img{0}.jpg", imgNum);
+            imgNum++;
+            if (imgNum == 5)
+                imgNum = 1;
+        }
+
+        private void SlideShowButton_Click(object sender, EventArgs e)
+        {
+            slide = new FolderBrowserDialog();
+            slide.ShowDialog();
+            timer.Enabled = true;
+        }
+
+        private void RotateButton_Click(object sender, EventArgs e)
+        {
+            Bitmap rotate = new Bitmap(picturebox.Image);
+            if (rotate != null)
+            {
+                rotate.RotateFlip(RotateFlipType.Rotate180FlipY);
+                picturebox.Image = rotate;
+            }
         }
 
         private void GreyButton_Click(object sender, EventArgs e)
@@ -369,7 +402,7 @@ namespace WindowsFormsrakendusteloomine
 
         private void showapicture_Click(object sender, EventArgs e)
         {
-            if(openfiledialog1.ShowDialog() == DialogResult.OK)
+            if (openfiledialog1.ShowDialog() == DialogResult.OK)
             {
                 picturebox.Load(openfiledialog1.FileName);
             }
@@ -382,5 +415,8 @@ namespace WindowsFormsrakendusteloomine
             else
                 picturebox.SizeMode = PictureBoxSizeMode.Normal;
         }
+
+
+
     }
 }
