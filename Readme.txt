@@ -21,8 +21,8 @@ Matemaatika viktoriin{
 
 
 Sobiv mäng{
-  1.
-  2.
+  1. Nupp restart
+  2. Keerukus
   3.
   4.
   5.
