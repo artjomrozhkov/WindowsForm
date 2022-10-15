@@ -12,17 +12,16 @@ namespace WindowsFormsrakendusteloomine
     public class MatchingGame : Form
     {
             Random rnd = new Random();
-            TableLayoutPanel tableLayoutPanel;
-            Label firstClicked = null;
-            Label secondClicked = null;
-            Timer timer1 = new Timer { Interval = 750 };
-            Timer timer = new Timer { Interval = 1000 };
+            Label firstClick = null;
+            Label secondClick = null;
             int score = 0;
             int tik = 0;
+            TableLayoutPanel tableLayoutPanel;
+            Timer timer1 = new Timer { Interval = 750 };
+            Timer timer = new Timer { Interval = 1000 };
             Label difficult;
             public MatchingGame()
             {
-                CenterToScreen();
                 Text = "Matching game";
                 ClientSize = new Size(550, 550);
                 BackColor = Color.White;
@@ -34,19 +33,19 @@ namespace WindowsFormsrakendusteloomine
                     Font = new Font("Arial", 28, FontStyle.Bold)
                 };
                 this.Controls.Add(difficult);
-                string[] buttonstext = { "Tavaline raskusaste", "Keskmise raskusastmega", "Kõrge raskusaste" };
+                string[] ButtonsText = { "Tavaline raskusaste", "Keskmise raskusastmega", "Kõrge raskusaste" };
                 int y = 200;
-                for (int i = 0; i < buttonstext.Length; i++)
+                for (int i = 0; i < ButtonsText.Length; i++)
                 {
 
                     Button button = new Button
                     {
-                        Text = buttonstext[i],
-                        Location = new Point(210, y),
-                        Size = new Size(100, 80)
+                        Text = ButtonsText[i],
+                        Location = new Point(120, y),
+                        Size = new Size(300, 80)
                     };
-                    button.Click += Button_Click;
                     this.Controls.Add(button);
+                    button.Click += Button_Click;
                     y += 100;
                 }
 
@@ -107,15 +106,15 @@ namespace WindowsFormsrakendusteloomine
                         if (clickedLabel.ForeColor == Color.Black) 
                             return;
 
-                        if (firstClicked == null)
+                        if (firstClick == null)
                         {
-                            firstClicked = clickedLabel;
-                            firstClicked.ForeColor = Color.Black;
+                            firstClick = clickedLabel;
+                            firstClick.ForeColor = Color.Black;
                             return;
                         }
 
-                        secondClicked = clickedLabel; 
-                        secondClicked.ForeColor = Color.Black;
+                        secondClick = clickedLabel;
+                        secondClick.ForeColor = Color.Black;
                         timer1.Start();
                     }
                 }
@@ -123,19 +122,19 @@ namespace WindowsFormsrakendusteloomine
                 void timer1_Tick(object sender, EventArgs e)
                 {
                     
-                    if (firstClicked.Text == secondClicked.Text) 
+                    if (firstClick.Text == secondClick.Text) 
                     {
-                        firstClicked.ForeColor = firstClicked.ForeColor;
-                        secondClicked.ForeColor = secondClicked.ForeColor;
+                        firstClick.ForeColor = firstClick.ForeColor;
+                        secondClick.ForeColor = secondClick.ForeColor;
                     }
                     else 
                     {
-                        firstClicked.ForeColor = firstClicked.BackColor;
-                        secondClicked.ForeColor = secondClicked.BackColor;
+                        firstClick.ForeColor = firstClick.BackColor;
+                        secondClick.ForeColor = secondClick.BackColor;
                         score++;
                     }
-                    firstClicked = null;
-                    secondClicked = null;
+                    firstClick = null;
+                    secondClick = null;
                     timer1.Stop(); 
                     CheckForWinner();
                 }
@@ -154,13 +153,13 @@ namespace WindowsFormsrakendusteloomine
                     }
                     timer.Stop(); 
                     System.Threading.Thread.Sleep(1000);
-                    MessageBox.Show("Sa sobitasid kõik ikoonid!", "Palju õnne"); 
-                    restarGame(); 
+                    MessageBox.Show("Sa sobitasid kõik ikoonid!", "Palju õnne");
+                restart(); 
                 }
-                void restarGame() 
+                void restart() 
                 {
                     this.Controls.Clear();
-                    if (MessageBox.Show($"Vead: {score.ToString()}\nAeg sekundid: {tik.ToString()}!\nKas soovite uuesti mängida?", "Tulemus!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show($"Vigade arv: {score.ToString()}\nSa mängisid: {tik.ToString()} sekundid\nKas soovite mängu taaskäivitada?", "Statistika!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         this.Controls.Clear();
                         Application.Restart();
@@ -175,11 +174,10 @@ namespace WindowsFormsrakendusteloomine
                 }
             }
 
-            //Ikoonidega loendid
             List<string> icons = new List<string>()
             {
-            "l", "l", "N", "N", ",", ",", "k", "k",
-            "b", "b", "v", "v", "w", "w", "z", "z"
+            "l", "l", "N", "N", ",", ",",
+            "b", "b", "v", "v", "w", "w"
             };
             List<string> icons2 = new List<string>()
             {
@@ -188,8 +186,8 @@ namespace WindowsFormsrakendusteloomine
             };
             List<string> icons3 = new List<string>()
             {
-            "l", "l", "N", "N", ",", ",", "k", "k",
-            "b", "b", "v", "v", "w", "w", "z", "z"
+            "l", "l", "N", "N", ",", ",", "k", "k","`", "`",
+            "b", "b", "v", "v", "w", "w", "z", "z", "f", "f"
             };
             private void Button_Click(object sender, EventArgs e) 
             {
@@ -220,5 +218,23 @@ namespace WindowsFormsrakendusteloomine
                     new MatchingGame(5, 4, icons3, tableLayoutPanel);
                 }
             }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MatchingGame
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "MatchingGame";
+            this.Load += new System.EventHandler(this.MatchingGame_Load);
+            this.ResumeLayout(false);
+
         }
+
+        private void MatchingGame_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
     }
