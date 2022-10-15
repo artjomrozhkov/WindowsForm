@@ -15,7 +15,6 @@ namespace WindowsFormsrakendusteloomine
             TableLayoutPanel tableLayoutPanel;
             Label firstClicked = null;
             Label secondClicked = null;
-            //Taimerite ja nende intervallide loomine
             Timer timer1 = new Timer { Interval = 750 };
             Timer timer = new Timer { Interval = 1000 };
             int score = 0;
@@ -23,11 +22,11 @@ namespace WindowsFormsrakendusteloomine
             Label difficult;
             public MatchingGame()
             {
-                CenterToScreen(); //Tsentreerib vormi  
+                CenterToScreen();
                 Text = "Matching game";
                 ClientSize = new Size(550, 550);
                 BackColor = Color.White;
-                difficult = new Label //Sildi loomine
+                difficult = new Label
                 {
                     Text = "Mängu raskusaste",
                     Location = new Point(110, 100),
@@ -35,9 +34,9 @@ namespace WindowsFormsrakendusteloomine
                     Font = new Font("Arial", 28, FontStyle.Bold)
                 };
                 this.Controls.Add(difficult);
-                string[] buttonstext = { "Tavaline raskusaste", "Keskmise raskusastmega", "Kõrge raskusaste" }; //Massiiv nupul oleva tekstiga
+                string[] buttonstext = { "Tavaline raskusaste", "Keskmise raskusastmega", "Kõrge raskusaste" };
                 int y = 200;
-                for (int i = 0; i < buttonstext.Length; i++) //Nuppude loomine
+                for (int i = 0; i < buttonstext.Length; i++)
                 {
 
                     Button button = new Button
@@ -46,19 +45,18 @@ namespace WindowsFormsrakendusteloomine
                         Location = new Point(210, y),
                         Size = new Size(100, 80)
                     };
-                    button.Click += Button_Click; //Nuppude lisamise meetod
+                    button.Click += Button_Click;
                     this.Controls.Add(button);
                     y += 100;
                 }
 
 
             }
-            public MatchingGame(int x, int y, List<string> icons, TableLayoutPanel tableLayoutPanel) //Mänguklassi loomine
+            public MatchingGame(int x, int y, List<string> icons, TableLayoutPanel tableLayoutPanel)
             {
-                //Taimerite meetodi lisamine
                 timer.Tick += Timer_Tick;
                 timer1.Tick += timer1_Tick;
-                for (int i = 0; i < x; i++) //Sildi loomine
+                for (int i = 0; i < x; i++)
                 {
                     tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
                     tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
@@ -79,14 +77,14 @@ namespace WindowsFormsrakendusteloomine
                     };
 
                 }
-                foreach (Control control in tableLayoutPanel.Controls) //Sirvib läbi kõik tabelisLayoutPanel olevad komponendid
+                foreach (Control control in tableLayoutPanel.Controls)
                 {
                     Label iconLabel = control as Label;
-                    if (iconLabel != null) //Kui silt on olemas, siis
+                    if (iconLabel != null)
                     {
-                        int randomNumber = rnd.Next(icons.Count); //Genereerib juhusliku arvu
-                        iconLabel.Text = icons[randomNumber]; //Võrdleb sildi teksti indeksi järgi massiivi väärtusega
-                        icons.RemoveAt(randomNumber); //Eemaldab selle väärtuse massiivist
+                        int randomNumber = rnd.Next(icons.Count); 
+                        iconLabel.Text = icons[randomNumber];
+                        icons.RemoveAt(randomNumber); 
                     }
                     iconLabel.ForeColor = iconLabel.BackColor;
                     iconLabel.Click += label1_Click;
@@ -99,14 +97,14 @@ namespace WindowsFormsrakendusteloomine
                 void label1_Click(object sender, EventArgs e)
                 {
                     timer.Start();
-                    if (timer1.Enabled == true) //Kontrollib, kas taimer on käivitatud, kontrollides atribuudi Enabled väärtust.
+                    if (timer1.Enabled == true) 
                         return;
 
                     Label clickedLabel = sender as Label;
 
-                    if (clickedLabel != null) //Kui mängija valib esimese ja teise sildielemendi ning taimer käivitub
+                    if (clickedLabel != null) 
                     {
-                        if (clickedLabel.ForeColor == Color.Black) //Kui klõpsate juba nähtaval sildil, siis ei juhtu midagi
+                        if (clickedLabel.ForeColor == Color.Black) 
                             return;
 
                         if (firstClicked == null)
@@ -116,21 +114,21 @@ namespace WindowsFormsrakendusteloomine
                             return;
                         }
 
-                        secondClicked = clickedLabel; //Jälgib teist klõpsu ja määrab sildi mustaks
+                        secondClicked = clickedLabel; 
                         secondClicked.ForeColor = Color.Black;
-                        timer1.Start(); //Käivitab taimeri
+                        timer1.Start();
                     }
                 }
 
                 void timer1_Tick(object sender, EventArgs e)
                 {
-                    //Kontrollib iga taimeri linnukest
-                    if (firstClicked.Text == secondClicked.Text) //Kui see sobib, muudab see sildi värvi mustaks
+                    
+                    if (firstClicked.Text == secondClicked.Text) 
                     {
                         firstClicked.ForeColor = firstClicked.ForeColor;
                         secondClicked.ForeColor = secondClicked.ForeColor;
                     }
-                    else //Muidu peidab
+                    else 
                     {
                         firstClicked.ForeColor = firstClicked.BackColor;
                         secondClicked.ForeColor = secondClicked.BackColor;
@@ -138,15 +136,14 @@ namespace WindowsFormsrakendusteloomine
                     }
                     firstClicked = null;
                     secondClicked = null;
-                    timer1.Stop(); //Peatab taimeri
-                    CheckForWinner(); //Käivitab funktsiooni
+                    timer1.Stop(); 
+                    CheckForWinner();
                 }
 
                 void CheckForWinner()
                 {
-                    foreach (Control control in tableLayoutPanel.Controls) //Sirvib läbi kõik tabelisLayoutPanel olevad komponendid
+                    foreach (Control control in tableLayoutPanel.Controls) 
                     {
-                        //Kui silmus läbib kõik oksad ja ei naase, siis on mäng läbi
                         Label iconLabel = control as Label;
 
                         if (iconLabel != null)
@@ -155,12 +152,12 @@ namespace WindowsFormsrakendusteloomine
                                 return;
                         }
                     }
-                    timer.Stop(); //Peatab taimeri
+                    timer.Stop(); 
                     System.Threading.Thread.Sleep(1000);
-                    MessageBox.Show("Sa sobitasid kõik ikoonid!", "Palju õnne"); //Kuvab teate mängu lõppemise kohta
-                    restarGame(); //Peatab taimeri
+                    MessageBox.Show("Sa sobitasid kõik ikoonid!", "Palju õnne"); 
+                    restarGame(); 
                 }
-                void restarGame() //Taaskäivitab vormi sõltuvalt vastusest
+                void restarGame() 
                 {
                     this.Controls.Clear();
                     if (MessageBox.Show($"Vead: {score.ToString()}\nAeg sekundid: {tik.ToString()}!\nKas soovite uuesti mängida?", "Tulemus!", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -194,10 +191,10 @@ namespace WindowsFormsrakendusteloomine
             "l", "l", "N", "N", ",", ",", "k", "k",
             "b", "b", "v", "v", "w", "w", "z", "z"
             };
-            private void Button_Click(object sender, EventArgs e) //Meetod raskete mängude valimiseks
+            private void Button_Click(object sender, EventArgs e) 
             {
                 Button nupp_sender = (Button)sender;
-                this.Controls.Clear(); //Tühjendab vormi
+                this.Controls.Clear(); 
                 tableLayoutPanel = new TableLayoutPanel
                 {
                     BackColor = Color.White,
@@ -205,7 +202,6 @@ namespace WindowsFormsrakendusteloomine
                     CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset,
                 };
                 Controls.Add(tableLayoutPanel);
-                //Kontrollib, millist nuppu vajutati
                 if (nupp_sender.Text == "Tavaline raskusaste")
                 {
 
