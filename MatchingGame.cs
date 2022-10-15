@@ -184,12 +184,12 @@ namespace WindowsFormsrakendusteloomine
             "l", "l", "N", "N", ",", ",", "k", "k",
             "b", "b", "v", "v", "w", "w", "z", "z"
             };
-            List<string> icons_2 = new List<string>()
+            List<string> icons2 = new List<string>()
             {
             "l", "l", "N", "N", ",", ",", "k", "k",
             "b", "b", "v", "v", "w", "w", "z", "z"
             };
-            List<string> icons_3 = new List<string>()
+            List<string> icons3 = new List<string>()
             {
             "l", "l", "N", "N", ",", ",", "k", "k",
             "b", "b", "v", "v", "w", "w", "z", "z"
@@ -215,13 +215,13 @@ namespace WindowsFormsrakendusteloomine
                 else if (nupp_sender.Text == "Keskmise raskusastmega")
                 {
 
-                    new MatchingGame(4, 4, icons_2, tableLayoutPanel);
+                    new MatchingGame(4, 4, icons2, tableLayoutPanel);
 
                 }
                 else if (nupp_sender.Text == "Kõrge raskusaste")
                 {
 
-                    new MatchingGame(5, 4, icons_3, tableLayoutPanel);
+                    new MatchingGame(5, 4, icons3, tableLayoutPanel);
                 }
             }
         }
