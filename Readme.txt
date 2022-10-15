@@ -23,8 +23,8 @@ Matemaatika viktoriin{
 Sobiv mäng{
   1. Nupp restart
   2. Keerukus
-  3.
-  4.
+  3. Taaskäivitab või väljub vormi kasutaja vastuse põhjal.
+  4. Mängu lõpus kuvatakse valede vastuste arv ja aeg, kui kaua olete mänginud
   5.
 }
 
