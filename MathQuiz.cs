@@ -23,7 +23,7 @@ namespace WindowsFormsrakendusteloomine
         private TextBox txtAnswer, txtAnswer2, txtAnswer3, txtAnswer4;
         private Button button1, buttonTimer;
         private Label lblNumA, lblNumA2, lblNumA3, lblNumA4;
-        int score, correct, total1, total2, total3, total4;
+        int total1, total2, total3, total4, score, correct;
         TableLayoutPanel tableLayoutPanel;
         TextBox[] Answer = { };
         TextBox[] txtAnswerArray = { };
@@ -53,7 +53,7 @@ namespace WindowsFormsrakendusteloomine
             int i = 0;
 
 
-            tableLayoutPanel = new TableLayoutPanel //Looming tableLayoutPanel
+            tableLayoutPanel = new TableLayoutPanel
             {
                 AutoSize = true,
                 ColumnCount = 5,
@@ -63,9 +63,9 @@ namespace WindowsFormsrakendusteloomine
                 TabIndex = 0,
                 BackColor = Color.White,
             };
-            Controls.Add(tableLayoutPanel); //Lisa paneelile tableLayoutPanel
+            Controls.Add(tableLayoutPanel);
 
-            lblScore = new Label() //Looming lblScore
+            lblScore = new Label()
             {
                 AutoSize = true,
                 ForeColor = Color.Maroon,
@@ -75,16 +75,18 @@ namespace WindowsFormsrakendusteloomine
                 TabIndex = 0,
                 Text = "Skoor: 0"
             };
-            tableLayoutPanel.Controls.Add(lblScore); //Lisa paneelile lblScore
+            tableLayoutPanel.Controls.Add(this.lblScore);
 
-            lblTimer = new Label //Looming lblTimer
+
+
+            lblTimer = new Label
             {
                 AutoSize = true,
                 Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold, GraphicsUnit.Point, 200),
                 Name = "lblAnswer",
                 Size = new Size(50, 15),
                 TabIndex = 5,
-                Text = "00:00:00"
+                Text = "--:--:--"
             };
             timer1 = new Timer
             {
@@ -92,9 +94,9 @@ namespace WindowsFormsrakendusteloomine
             };
 
 
-            foreach (Label sym in lblNumArrayA) //lblNumArrayA parameetrid
+            foreach (Label sym in lblNumArrayA)
             {
-                lblNumArrayA[i] = new Label //Looming lblNumArrayA
+                lblNumArrayA[i] = new Label
                 {
                     AutoSize = true,
                     Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
@@ -108,9 +110,9 @@ namespace WindowsFormsrakendusteloomine
             }
             i = 0;
 
-            foreach (Label sym in lblNumArrayB) //lblNumArrayB parameetrid
+            foreach (Label sym in lblNumArrayB)
             {
-                lblNumArrayB[i] = new Label //Looming lblNumArrayB
+                lblNumArrayB[i] = new Label
                 {
                     AutoSize = true,
                     Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
@@ -124,9 +126,9 @@ namespace WindowsFormsrakendusteloomine
             }
             i = 0;
 
-            foreach (Label sym in labelSymArray) //labelSymArray parameetrid
+            foreach (Label sym in labelSymArray)
             {
-                labelSymArray[i] = new Label //Looming labelSymArray 
+                labelSymArray[i] = new Label
                 {
                     AutoSize = true,
                     Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
@@ -140,9 +142,9 @@ namespace WindowsFormsrakendusteloomine
             }
             i = 0;
 
-            foreach (Label sym in lblEqualsArray) //lblEqualsArray parameetrid
+            foreach (Label sym in lblEqualsArray)
             {
-                lblEqualsArray[i] = new Label //Looming lblEqualsArray
+                lblEqualsArray[i] = new Label
                 {
                     AutoSize = true,
                     Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204),
@@ -156,7 +158,7 @@ namespace WindowsFormsrakendusteloomine
             }
             i = 0;
 
-            lblAnswer = new Label //Looming lblAnswer
+            lblAnswer = new Label
             {
                 AutoSize = true,
                 Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 204),
@@ -168,9 +170,9 @@ namespace WindowsFormsrakendusteloomine
                 Text = "Õige",
             };
 
-            foreach (TextBox sym in txtAnswerArray) //txtAnswerArray parameetrid
+            foreach (TextBox sym in txtAnswerArray)
             {
-                txtAnswerArray[i] = new TextBox //Looming txtAnswerArray
+                txtAnswerArray[i] = new TextBox
                 {
                     Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 204),
                     Location = new Point(202, 40),
@@ -182,7 +184,7 @@ namespace WindowsFormsrakendusteloomine
             }
             i = 0;
 
-            buttonTimer = new Button //Looming buttonTimer
+            buttonTimer = new Button
             {
                 Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 200),
                 Location = new Point(290, 40),
@@ -193,7 +195,7 @@ namespace WindowsFormsrakendusteloomine
                 UseVisualStyleBackColor = true
             };
 
-            button1 = new Button() //Looming button1 
+            button1 = new Button()
             {
                 Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 204),
                 Location = new Point(290, 40),
@@ -209,50 +211,49 @@ namespace WindowsFormsrakendusteloomine
             timer1.Tick += timer1_Tick;
             button1.Click += new EventHandler(CheckButtonClickEvent);
 
-            txtAnswerArray[0].TextChanged += new EventHandler(CheckAnswer); //kontrollib vastust txtAnswerArray[0]
-            txtAnswerArray[1].TextChanged += new EventHandler(CheckAnswer); //kontrollib vastust txtAnswerArray[1]
-            txtAnswerArray[2].TextChanged += new EventHandler(CheckAnswer); //kontrollib vastust txtAnswerArray[2]
-            txtAnswerArray[3].TextChanged += new EventHandler(CheckAnswer); //kontrollib vastust txtAnswerArray[3]
+            txtAnswerArray[0].TextChanged += new EventHandler(CheckAnswer);
+            txtAnswerArray[1].TextChanged += new EventHandler(CheckAnswer);
+            txtAnswerArray[2].TextChanged += new EventHandler(CheckAnswer);
+            txtAnswerArray[3].TextChanged += new EventHandler(CheckAnswer);
 
             //NumA
-            tableLayoutPanel.Controls.Add(lblNumArrayA[0], 0, 0); //Paneb tabelisse lblNumArrayA[0]
-            tableLayoutPanel.Controls.Add(lblNumArrayA[1], 0, 1); //Paneb tabelisse lblNumArrayA[1]
-            tableLayoutPanel.Controls.Add(lblNumArrayA[2], 0, 2); //Paneb tabelisse lblNumArrayA[2]
-            tableLayoutPanel.Controls.Add(lblNumArrayA[3], 0, 3); //Paneb tabelisse lblNumArrayA[3]
+            tableLayoutPanel.Controls.Add(lblNumArrayA[0], 0, 0);
+            tableLayoutPanel.Controls.Add(lblNumArrayA[1], 0, 1);
+            tableLayoutPanel.Controls.Add(lblNumArrayA[2], 0, 2);
+            tableLayoutPanel.Controls.Add(lblNumArrayA[3], 0, 3);
 
             //NumB
-            tableLayoutPanel.Controls.Add(lblNumArrayB[0], 2, 0); //Paneb tabelisse lblNumArrayB[0]
-            tableLayoutPanel.Controls.Add(lblNumArrayB[1], 2, 1); //Paneb tabelisse lblNumArrayB[1]
-            tableLayoutPanel.Controls.Add(lblNumArrayB[2], 2, 2); //Paneb tabelisse lblNumArrayB[2]
-            tableLayoutPanel.Controls.Add(lblNumArrayB[3], 2, 3); //Paneb tabelisse lblNumArrayB[3]
+            tableLayoutPanel.Controls.Add(lblNumArrayB[0], 2, 0);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[1], 2, 1);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[2], 2, 2);
+            tableLayoutPanel.Controls.Add(lblNumArrayB[3], 2, 3);
 
             //Symbol
-            tableLayoutPanel.Controls.Add(labelSymArray[0], 1, 0); //Paneb tabelisse labelSymArray[0]
-            tableLayoutPanel.Controls.Add(labelSymArray[1], 1, 1); //Paneb tabelisse labelSymArray[1]
-            tableLayoutPanel.Controls.Add(labelSymArray[2], 1, 2); //Paneb tabelisse labelSymArray[2]
-            tableLayoutPanel.Controls.Add(labelSymArray[3], 1, 3); //Paneb tabelisse labelSymArray[3]
+            tableLayoutPanel.Controls.Add(labelSymArray[0], 1, 0);
+            tableLayoutPanel.Controls.Add(labelSymArray[1], 1, 1);
+            tableLayoutPanel.Controls.Add(labelSymArray[2], 1, 2);
+            tableLayoutPanel.Controls.Add(labelSymArray[3], 1, 3);
 
             //Answer
-            tableLayoutPanel.Controls.Add(txtAnswerArray[0], 4, 0); //Paneb tabelisse txtAnswerArray[0]
-            tableLayoutPanel.Controls.Add(txtAnswerArray[1], 4, 1); //Paneb tabelisse txtAnswerArray[1]
-            tableLayoutPanel.Controls.Add(txtAnswerArray[2], 4, 2); //Paneb tabelisse txtAnswerArray[2]
-            tableLayoutPanel.Controls.Add(txtAnswerArray[3], 4, 3); //Paneb tabelisse txtAnswerArray[3]
+            tableLayoutPanel.Controls.Add(txtAnswerArray[0], 4, 0);
+            tableLayoutPanel.Controls.Add(txtAnswerArray[1], 4, 1);
+            tableLayoutPanel.Controls.Add(txtAnswerArray[2], 4, 2);
+            tableLayoutPanel.Controls.Add(txtAnswerArray[3], 4, 3);
 
 
             //Equals
-            tableLayoutPanel.Controls.Add(lblEqualsArray[0], 3, 0); //Paneb tabelisse lblEqualsArray[0]
-            tableLayoutPanel.Controls.Add(lblEqualsArray[1], 3, 1); //Paneb tabelisse lblEqualsArray[1]
-            tableLayoutPanel.Controls.Add(lblEqualsArray[2], 3, 2); //Paneb tabelisse lblEqualsArray[2]
-            tableLayoutPanel.Controls.Add(lblEqualsArray[3], 3, 3); //Paneb tabelisse lblEqualsArray[3]
+            tableLayoutPanel.Controls.Add(lblEqualsArray[0], 3, 0);
+            tableLayoutPanel.Controls.Add(lblEqualsArray[1], 3, 1);
+            tableLayoutPanel.Controls.Add(lblEqualsArray[2], 3, 2);
+            tableLayoutPanel.Controls.Add(lblEqualsArray[3], 3, 3);
 
             //Others
-            tableLayoutPanel.Controls.Add(lblAnswer, 4, 4); //Paneb tabeliise lblAnswer
-            tableLayoutPanel.Controls.Add(lblScore, 4, 4); //Paneb tabeliise lblScore
-            tableLayoutPanel.Controls.Add(button1, 4, 4); //Paneb tabeliise button1
-            tableLayoutPanel.Controls.Add(buttonTimer, 4, 5); //Paneb tabeliise buttonTimer
-            tableLayoutPanel.Controls.Add(lblTimer); //Paneb tabeliise lblTimer
+            tableLayoutPanel.Controls.Add(lblAnswer, 4, 4);
+            tableLayoutPanel.Controls.Add(lblScore, 4, 4);
+            tableLayoutPanel.Controls.Add(button1, 4, 4);
+            tableLayoutPanel.Controls.Add(buttonTimer, 4, 5);
+            tableLayoutPanel.Controls.Add(lblTimer);
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (counter > 0)
@@ -291,6 +292,7 @@ namespace WindowsFormsrakendusteloomine
                 }
             }
         }
+
         private void CheckButtonClickEvent(object sender, EventArgs e)
         {
             for (int i = 0; i < 4; i++)
@@ -302,6 +304,7 @@ namespace WindowsFormsrakendusteloomine
                 }
                 catch (FormatException)
                 {
+
                 }
 
                 if (userEntered == totalArray[i])
@@ -334,10 +337,10 @@ namespace WindowsFormsrakendusteloomine
         {
             for (int ii = 0; ii < 4; ii++)
             {
-                int numA = rnd.Next(10, 20); //juhuslik väärtus numA vahemikus 10 kuni 20
-                int numB = rnd.Next(0, 9); //juhuslik väärtus numB vahemikus 0 kuni 9
+                int numA = rnd.Next(10, 20);
+                int numB = rnd.Next(0, 9);
 
-                txtAnswerArray[ii].Text = null; //nullväärtus
+                txtAnswerArray[ii].Text = null;
 
                 string Tsym = "";
                 Color colorSym = Color.Black;
