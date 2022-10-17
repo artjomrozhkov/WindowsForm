@@ -20,7 +20,7 @@ namespace WindowsFormsrakendusteloomine
 
             button1 = new Button
             {
-                Text = "Math Quiz",
+                Text = "Matemaatika viktoriin",
                 Location = new Point(100, 50),
                 BackColor = Color.White,
                 Size = new Size(120, 70)
@@ -28,7 +28,7 @@ namespace WindowsFormsrakendusteloomine
 
             button2 = new Button
             {
-                Text = "Picture Viewer",
+                Text = "Pildivaatur",
                 Location = new Point(230, 50),
                 BackColor = Color.White,
                 Size = new Size(120, 70)
@@ -36,7 +36,7 @@ namespace WindowsFormsrakendusteloomine
 
             button3 = new Button
             {
-                Text = "Matching Game",
+                Text = "Sobiv mäng",
                 Location = new Point(360, 50),
                 BackColor = Color.White,
                 Size = new Size(120, 70),
